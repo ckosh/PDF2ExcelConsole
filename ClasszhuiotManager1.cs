@@ -125,8 +125,10 @@ namespace PDF2excelConsole
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 12, mrt.grade);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 13, mrt.amount);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 14, mrt.OriginalShtarNum);
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 15, mrt.propPart);
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 16, ClassUtils.convertPartToPercent(mrt.propPart));
+                    excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Mortgage, currentrow, 15, mrt.propPart);
+//                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 15, mrt.propPart);
+//                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 16, ClassUtils.convertPartToPercent(mrt.propPart));
+                    excelOperations.PutDoubleValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, currentrow, 16, ClassUtils.convertPartToFraction1(mrt.propPart));
                     for (int i = 0; i < mrt.mortgageOwner.ownerName.Count; i++)
                     {
                         fillList(mrt.mortgageOwner.ownerIDType, mrt.mortgageOwner.ownerName.Count);
@@ -177,6 +179,8 @@ namespace PDF2excelConsole
 
             }
             excelOperations.setSheetCellWrapText(ClassClosedXML.Sheets.Mortgage, false, 17, currentrow, 2);
+            excelOperations.adjustToContent(ClassClosedXML.Sheets.Mortgage, 1, 17);
+
         }
         public void CreateRemarksTables()
         {
@@ -220,18 +224,20 @@ namespace PDF2excelConsole
                     }
                     excelOperations.refreshAll();
                     currentrow = Math.Max(remarkrows, sectionrow);
-                    excelOperations.setBoarder(ClassClosedXML.Sheets.Remark, beginFrame, currentrow - 1, 1, 10, 2);
-                    excelOperations.addNameRange(ClassClosedXML.Sheets.Remark, beginFrame, currentrow - 1, 1, 10, Convert.ToInt32(taboo.header.gush), Convert.ToInt32(taboo.header.helka), 0, "ZR");
+                    excelOperations.setBoarder(ClassClosedXML.Sheets.Remark, beginFrame, currentrow - 1, 1, 10, 1);
                     //                    excelOperations.drawLine(ClassClosedXML.Sheets.Remark, currentrow, 1, 9);
                     excelOperations.refreshAll();
                 }
                 int endrow = Math.Max(remarkrows, sectionrow) - 1;
-                excelOperations.setBoarder(ClassClosedXML.Sheets.Remark, topBox, endrow, 1, 10, 1);
+                excelOperations.addNameRange(ClassClosedXML.Sheets.Remark, beginFrame, currentrow - 1, 1, 10, Convert.ToInt32(taboo.header.gush), Convert.ToInt32(taboo.header.helka), 0, "ZR");
+                excelOperations.setBoarder(ClassClosedXML.Sheets.Remark, topBox, endrow, 1, 10, 2);
 
 
                 currentrow = endrow + 1;
             }
-            excelOperations.setSheetCellWrapText(ClassClosedXML.Sheets.Remark, false, 10, currentrow, 2);
+            excelOperations.setSheetCellWrapText(ClassClosedXML.Sheets.Remark, false, 10, currentrow, 2); 
+            excelOperations.adjustToContent(ClassClosedXML.Sheets.Remark, 1, 10);
+
         }
 
         public void CreateLeasingTables()
@@ -267,7 +273,8 @@ namespace PDF2excelConsole
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 6, own.LeaserName);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 7, own.idType);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 8, own.idNumber);
-                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 9, own.LeaserPart);
+                        excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Leasing, sectionrow, 9, own.LeaserPart);
+//                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 9, own.LeaserPart);
                         excelOperations.refreshAll();
                         sectionrow++;
                     }
@@ -287,6 +294,7 @@ namespace PDF2excelConsole
                 currentrow = endrow;
             }
             excelOperations.setSheetCellWrapText(ClassClosedXML.Sheets.Leasing, false, 15, currentrow, 2);
+            excelOperations.adjustToContent(ClassClosedXML.Sheets.Leasing, 1, 15);
         }
         public void CreatePropertyTables()
         {
@@ -302,7 +310,7 @@ namespace PDF2excelConsole
                 excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 2, taboo.header.gush);
                 excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 3, taboo.header.helka);
                 excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 4, taboo.description.rashuiot + " " + taboo.description.rashuiot1 + taboo.description.rashuiot2);
-                excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 5, taboo.description.area);
+                excelOperations.PutDoubleValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 5,  Convert.ToDouble(taboo.description.area));
                 excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 6, taboo.description.landType);
                 excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 7, taboo.description.remarks);
                 excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Property, currentrow, 8, taboo.description.oldNumbers);
@@ -344,9 +352,11 @@ namespace PDF2excelConsole
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 7, own.ownerName);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 8, own.idType);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 9, own.idNumber);
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 10, own.ownerPart);
-                    string vvv = ClassUtils.convertPartToPercent(own.ownerPart);
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 11, vvv);
+                    excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Owner, currentrow, 10, own.ownerPart);
+                    excelOperations.PutDoubleValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 11, ClassUtils.convertPartToFraction1(own.ownerPart));
+
+                    //string vvv = ClassUtils.convertPartToPercent(own.ownerPart);
+                    //excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 11, vvv);
                     if (taboo.mortgages != null && MortfirstX)
                     {
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 12, "X");

@@ -70,30 +70,33 @@ namespace PDF2excelConsole
 
             //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.BatimOwners);
             batimManager.CreateBatimOwnTable();
-            excelOperations.exitForDebug();
-
+//            excelOperations.exitForDebug();
             //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Property);
             zuiotManager.CreatePropertyTables();
+//            excelOperations.exitForDebug();
 
-//            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Leasing);
+            //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Leasing);
             zuiotManager.CreateLeasingTables();
+//            excelOperations.exitForDebug();
 
-//            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Mortgage);
+            //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Mortgage);
             zuiotManager.CreateMortGageTables();
+//            excelOperations.exitForDebug();
 
-//           excelOperations.deleteSheet(ClassExcelOperations.Sheets.Remark);
+            //           excelOperations.deleteSheet(ClassExcelOperations.Sheets.Remark);
             zuiotManager.CreateRemarksTables();
+ //           excelOperations.exitForDebug();
 
-//            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Owner);
+            //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.Owner);
             zuiotManager.CreateOwnersTable();
+//            excelOperations.exitForDebug();
             //
             //  
             //
             ClassJoinSplitManager1 joinSplitManager;
             joinSplitManager = new ClassJoinSplitManager1(fileHandler, excelOperations, batimManager, zuiotManager);
-//            excelOperations.deleteSheet(excelOperations.Sheets.JoinSplit);
             joinSplitManager.CreateJoinSplitTable();
-
+            excelOperations.exitForDebug();
             //if (customerType > 80)
             //{
             //    ClassJoinSplitManager joinSplitManager;

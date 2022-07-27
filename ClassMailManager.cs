@@ -37,7 +37,7 @@ namespace PDF2excelConsole
 
         static Dictionary<string, DateTime> messageTime = new Dictionary<string, DateTime>();
 
-        public ClassMailManager(bool debug)
+        public ClassMailManager(bool debug, int PopType)
         {
             objPop3Client = new Pop3Client();
             host = "mail.grabnadlan.co.il";
@@ -45,10 +45,19 @@ namespace PDF2excelConsole
             userdebug = "chaim.koshizky@grabnadlan.co.il";
             passworddebug = "3O5!RvHQ6Y5q";
             password = "L#(Bcw^Wi7{7";
-            port = 110;
-            useSsl = false;
+            port = 995;
+            useSsl = true;
             debugMode = debug;
-
+            if ( PopType == 0)
+            {
+                port = 110;
+                useSsl = false;
+            }
+            else if ( PopType == 1)
+            {
+                port = 995;
+                useSsl = true;
+            }
 
         }
 
@@ -79,12 +88,17 @@ namespace PDF2excelConsole
                 localUser = user;
                 localPassword = password;
             }
- 
+
             //            Log.Info("get number of messages ");
+            
+
             objPop3Client.Connect(host, port, useSsl);
             objPop3Client.Authenticate(localUser, localPassword);
+
+
             int j = objPop3Client.GetMessageCount();
             objPop3Client.Disconnect();
+            objPop3Client.Dispose();
 //            Log.Info("after  getNumberOfmessages " + j.ToString());
             return j;
         }

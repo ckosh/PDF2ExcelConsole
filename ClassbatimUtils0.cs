@@ -295,6 +295,14 @@ namespace PDF2excelConsole
                 markVal[2] = 1;
                 markVal[3] = 1;
             }
+            else if (argVal[0] == "תיקון" && argVal[1] == "טעות" && argVal[2] == "סןפר")
+            {
+                results[0] = "תיקון טעות סופר";
+                markVal[0] = 1;
+                markVal[1] = 1;
+                markVal[2] = 1;
+            }
+
             if (ClassUtils.isShtarNumber(argVal[argVal.Count - 1]))
             {
                 results[5] = argVal[argVal.Count - 1];

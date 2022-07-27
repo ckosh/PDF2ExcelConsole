@@ -45,6 +45,7 @@ namespace PDF2excelConsole
             int startrow = 0;
             int sectionStart = 0;
             currentrow = excelOperations.BuildJoinSplitHeader();
+
             sectionStart = currentrow;
             excelOperations.refreshAll();
             ClassClosedXML.Sheets splitpage;
@@ -279,6 +280,8 @@ namespace PDF2excelConsole
                 }
                 excelOperations.refreshAll();
             }
+            excelOperations.getSheet(Sheets.JoinSplit).Columns(1, 17).AdjustToContents();
+            
 
             excelOperations.CorrectFormatForSum(splitpage, 1, sectionStart, currentrow - 1, "@");
             excelOperations.CorrectFormatForSum(splitpage, 11, sectionStart, currentrow - 1, "#,##0.00");

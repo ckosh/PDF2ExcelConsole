@@ -150,6 +150,7 @@
     <Compile Include="ClassFilesHandleClosedXML.cs" />
     <Compile Include="ClassJoinSplitManager1.cs" />
     <Compile Include="ClassMailManager.cs" />
+    <Compile Include="ClassMailManager1.cs" />
     <Compile Include="ClassMapTaboo.cs" />
     <Compile Include="ClassProcessPDF.cs" />
     <Compile Include="ClassTaboo.cs" />

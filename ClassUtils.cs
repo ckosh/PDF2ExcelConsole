@@ -780,6 +780,11 @@ namespace PDF2excelConsole
                     sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3] + " " + temp[iv+4]  ;
                     result.Add(sss, 5);
                 }
+                else if (ClassUtils.isMatchSequenceNormal(temp, iv, "מכר", "לפי", "צו", "בית", "משפט"))
+                {
+                    sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3] + " " + temp[iv + 4];
+                    result.Add(sss, 5);
+                }
                 else if (ClassUtils.isMatchSequenceNormal(temp, iv, "העברת", "שכירות", "ללא", "תמורה"))
                 {
                     sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3];

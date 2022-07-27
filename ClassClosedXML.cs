@@ -73,7 +73,21 @@ namespace PDF2excelConsole
             asheet.Cell(2, 12).Value = ClassUtils.convertPartToFraction1("בשלמות");
             asheet.Cell(3, 12).Value = ClassUtils.convertPartToFraction1("1/7");
 
-//            exitForDebug();
+            //createSheet(Sheets.BatimAttachments, "A1", Color.Red);
+            //createSheet(Sheets.BatimLeasing, "A2", Color.Red);
+            //createSheet(Sheets.BatimMortgage, "A3", Color.Red);
+            //createSheet(Sheets.BatimOwners, "A4", Color.Red);
+            //createSheet(Sheets.BatimProperty , "A5", Color.Red);
+            //createSheet(Sheets.BatimRemarks , "A6", Color.Red);
+            //createSheet(Sheets.JoinSplit, "A7", Color.Red);
+            //createSheet(Sheets.Leasing , "A8", Color.Red);
+            //createSheet(Sheets.Mortgage , "A9", Color.Red);
+            //createSheet(Sheets.Owner , "A10", Color.Red);
+            //createSheet(Sheets.PDFfiles , "A11", Color.Red);
+            //createSheet(Sheets.Property , "A12", Color.Red);
+            //createSheet(Sheets.Remark , "A13", Color.Red);
+            //createSheet(Sheets.Zikot, "A14", Color.Red);
+            //exitForDebug();
         }
 
         public void setColumnPercentFormat(Sheets sn, int columnNumber, int precision)
@@ -113,6 +127,7 @@ namespace PDF2excelConsole
             switch (sn)
             {
                 case Sheets.Owner:
+
                     xlOwnersSheet = xlWorkBook.Worksheets.Add(name).SetTabColor(XLColor.FromColor(col));
                     xlOwnersSheet.RightToLeft = true;
                     break;
@@ -452,24 +467,28 @@ namespace PDF2excelConsole
             HeadTitle(xlMortgageSheet, "הערות", 2, 17, 17, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlMortgageSheet, "שם קובץ", 2, 18, 18, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 12, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
 
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(1)).Width = 5.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(2)).Width = 4.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(3)).Width = 10.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(4)).Width = 9.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(5)).Width = 6.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(6)).Width = 20.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(7)).Width = 5.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(8)).Width = 9.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(9)).Width = 10.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(10)).Width = 5.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(11)).Width = 6.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(12)).Width = 6.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(13)).Width = 13.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(14)).Width = 10.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(15)).Width = 10.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(16)).Width = 30.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(17)).Width = 15.0;
-            xlMortgageSheet.Column(ClassUtils.ColumnLabel(18)).Width = 15.0;
+            xlMortgageSheet.Columns(1, 18).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlMortgageSheet.Columns(1, 18).AdjustToContents();
+            setColumnPercentFormat(Sheets.Mortgage, 16, 5);
+
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(1)).Width = 5.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(2)).Width = 4.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(3)).Width = 10.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(4)).Width = 9.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(5)).Width = 6.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(6)).Width = 20.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(7)).Width = 5.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(8)).Width = 9.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(9)).Width = 10.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(10)).Width = 5.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(11)).Width = 6.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(12)).Width = 6.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(13)).Width = 13.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(14)).Width = 10.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(15)).Width = 10.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(16)).Width = 30.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(17)).Width = 15.0;
+            //xlMortgageSheet.Column(ClassUtils.ColumnLabel(18)).Width = 15.0;
 
             return rowNumber;
         }
@@ -488,6 +507,8 @@ namespace PDF2excelConsole
             HeadTitle(xlRemarksSheet, "הערות", 2, 9, 9, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlRemarksSheet, "שם קובץ", 2, 10, 10, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
 
+            xlRemarksSheet.Columns(1, 10).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlRemarksSheet.Columns(1, 10).AdjustToContents();
 
             xlRemarksSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.00;
             xlRemarksSheet.Column(ClassUtils.ColumnLabel(2)).Width = 5.00;
@@ -513,13 +534,16 @@ namespace PDF2excelConsole
             HeadTitle(xlLeasingSheet, "שם החוכר", 2, 6, 6, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "סוג זיהוי", 2, 7, 7, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "מס. זיהוי", 2, 8, 8, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
-            HeadTitle(xlLeasingSheet, "החלק בנכס", 2, 9, 9, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
+            HeadTitle(xlLeasingSheet, "החלק בזכות", 2, 9, 9, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "רמת חכירה", 2, 10, 10, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "בתנאי שטר מקורי", 2, 11, 11, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "תאריך סיום", 2, 12, 12, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "החלק בנכס", 2, 13, 13, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "הערות", 2, 14, 14, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlLeasingSheet, "שם קובץ", 2, 15, 15, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
+
+            xlLeasingSheet.Columns(1, 15).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlLeasingSheet.Columns(1, 15).AdjustToContents();
 
             xlLeasingSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.00;
             xlLeasingSheet.Column(ClassUtils.ColumnLabel(2)).Width = 5.00;
@@ -552,6 +576,9 @@ namespace PDF2excelConsole
             HeadTitle(xlPropertySheet, "הערות רשם המקרקעין", 2, 7, 7, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlPropertySheet, "המספרים הישנים של החלקה", 2, 8, 8, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlPropertySheet, "שם הקובץ", 2, 9, 9, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
+
+            xlPropertySheet.Columns(1, 9).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlPropertySheet.Columns(1, 9).AdjustToContents();
 
             xlPropertySheet.Column(ClassUtils.ColumnLabel(1)).Width = 4.00;
             xlPropertySheet.Column(ClassUtils.ColumnLabel(2)).Width = 10.00;
@@ -588,6 +615,9 @@ namespace PDF2excelConsole
             HeadTitle(xlOwnersSheet, "הערות", 2, 14, 14, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
             HeadTitle(xlOwnersSheet, "שם קובץ", 2, 15, 15, XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 11, true, System.Drawing.Color.Aqua, 40, true, XLBorderStyleValues.Thin);
 
+            xlOwnersSheet.Columns(1, 15).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlOwnersSheet.Columns(1, 15).AdjustToContents();
+
             xlOwnersSheet.Column(ClassUtils.ColumnLabel(1)).Width = 4.00;
             xlOwnersSheet.Column(ClassUtils.ColumnLabel(2)).Width = 8.00;
             xlOwnersSheet.Column(ClassUtils.ColumnLabel(3)).Width = 4.00;
@@ -601,6 +631,7 @@ namespace PDF2excelConsole
             xlOwnersSheet.Column(ClassUtils.ColumnLabel(11)).Width = 10.00;
             xlOwnersSheet.Column(ClassUtils.ColumnLabel(12)).Width = 20.00;
 
+            setColumnPercentFormat(Sheets.Owner, 11, 5);
             rowNumber = 3;
             return rowNumber;
         }
@@ -633,24 +664,27 @@ namespace PDF2excelConsole
             HeadTitle(xlJoinSplitSheet, "שווי זכויות + מחוברים (" + NewShekel + ")", 3, 16, 16,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "שווי יחסי (באחוזים)", 3, 17, 17,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
 
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(2)).Width = 4.55;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(3)).Width = 7.0;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(4)).Width = 9.55;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(5)).Width = 8.0;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(6)).Width = 10.0;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(7)).Width = 8.82;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(8)).Width = 18.0;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(9)).Width = 13.36;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(10)).Width = 8.73;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(11)).Width = 7.36;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(12)).Width = 7.27;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(13)).Width = 7.36;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(14)).Width = 12.73;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(15)).Width = 11.27;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(16)).Width = 12.55;
-            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(17)).Width = 7.36;
+            xlJoinSplitSheet.Columns(1, 17).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlJoinSplitSheet.Columns(1, 17).AdjustToContents();
+
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(2)).Width = 4.55;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(3)).Width = 7.0;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(4)).Width = 9.55;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(5)).Width = 8.0;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(6)).Width = 10.0;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(7)).Width = 8.82;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(8)).Width = 18.0;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(9)).Width = 13.36;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(10)).Width = 8.73;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(11)).Width = 7.36;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(12)).Width = 7.27;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(13)).Width = 7.36;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(14)).Width = 12.73;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(15)).Width = 11.27;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(16)).Width = 12.55;
+            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(17)).Width = 7.36;
 
             HeadTitle(xlJoinSplitSheet, "", 4, 1, 1,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "a", 4, 2, 2,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
@@ -670,6 +704,10 @@ namespace PDF2excelConsole
             HeadTitle(xlJoinSplitSheet, "", 4, 16, 16,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "", 4, 17, 17,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
             rowNumber = 5;
+            setColumnPercentFormat(Sheets.JoinSplit, 13, 5);
+            xlJoinSplitSheet.Columns(1, 17).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            xlJoinSplitSheet.Columns(1, 17).AdjustToContents();
+
             return rowNumber;
         }
 
@@ -890,7 +928,9 @@ namespace PDF2excelConsole
             }
             sellection.Style.Alignment.Vertical = param.xlVAlign;
             sellection.Style.Alignment.Horizontal = param.xlHAlign;
-            sellection.Style.Fill.BackgroundColor = param.colorbackground;
+//            sellection.Style.Fill.BackgroundColor = param.colorbackground;
+            sellection.Style.Fill.SetBackgroundColor(param.colorbackground);
+
 
             sellection.Style.Border.BottomBorder = param.Weight;
             sellection.Style.Border.BottomBorderColor = param.colorbackground;

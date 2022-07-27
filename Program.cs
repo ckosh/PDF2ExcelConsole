@@ -13,6 +13,8 @@ namespace PDF2excelConsole
         static public string Tempfolder = "d:\\temp";
         static public int opsticalMinutes = 30;
         static public bool debugMode = true;
+        static public int Pop3Port = 0;
+        static public string containerFolder;
 
         static void Main(string[] args)
         {
@@ -27,8 +29,18 @@ namespace PDF2excelConsole
             Tempfolder = args[1];
             opsticalMinutes = Convert.ToInt32(args[2]);
             debugMode = Convert.ToBoolean(args[3]);
+            Pop3Port = Convert.ToInt32(args[4]);
+            if ( args.Length > 5)
+            {
+                containerFolder = args[5];
+            }
+            else
+            {
+                containerFolder = "";
+            }
 
-            ClassMailManager mailManager = new ClassMailManager(debugMode);
+
+            ClassMailManager mailManager = new ClassMailManager(debugMode, Pop3Port);
 
             while (true)
             {
@@ -39,15 +51,7 @@ namespace PDF2excelConsole
                     if (mailcount > 0)
                     {
                         int firstMail = 1;
-                        int count = mailManager.checkMailContent  (firstMail, Tempfolder, debugMode, opsticalMinutes);
-                        //count = count + Int32.Parse(labelsent.Text);
-                        //labelsent.Text = count.ToString();
-                        //labelsent.Refresh();
-
-                        //int owners = batchClass.getNumberOfOwners();
-                        //owners = owners + Int32.Parse(labelowners.Text);
-                        //labelowners.Text = owners.ToString();
-                        //labelowners.Refresh();
+                        int count = mailManager.checkMailContent  (firstMail, Tempfolder, debugMode, opsticalMinutes );
                     }
 
 
