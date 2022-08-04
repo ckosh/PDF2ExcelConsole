@@ -96,3 +96,7 @@ C:\Users\user\source\repos_vs22\PDF2excelConsole\bin\Debug\ClosedXML.pdb
 C:\Users\user\source\repos_vs22\PDF2excelConsole\bin\Debug\ClosedXML.xml
 C:\Users\user\source\repos_vs22\PDF2excelConsole\bin\Debug\DocumentFormat.OpenXml.xml
 C:\Users\user\source\repos_vs22\PDF2excelConsole\bin\Debug\ExcelNumberFormat.xml
+C:\Users\user\source\repos_vs22\PDF2excelConsole\bin\Debug\PDF2excelConsole.exe.manifest
+C:\Users\user\source\repos_vs22\PDF2excelConsole\bin\Debug\PDF2excelConsole.application
+C:\Users\user\source\repos_vs22\PDF2excelConsole\obj\Debug\PDF2excelConsole.exe.manifest
+C:\Users\user\source\repos_vs22\PDF2excelConsole\obj\Debug\PDF2excelConsole.application

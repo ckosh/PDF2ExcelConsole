@@ -16,10 +16,10 @@ namespace PDF2excelConsole
         ClassbatimManager1 batimManager;
         ClasszhuiotManager1 zuiotManager;
 
-        public ClassProcessPDF(string[] sarray, bool debugMode, string tempFolder,  int custType)
+        public ClassProcessPDF(string[] sarray, bool debugMode, string tempFolder)
         {
             DebugMode = debugMode;
-            customerType = custType;
+            
             excelOperations = new ClassClosedXML();
 
             fileHandler = new ClassFilesHandleClosedXML(excelOperations, DebugMode, tempFolder , sarray);
@@ -96,7 +96,7 @@ namespace PDF2excelConsole
             ClassJoinSplitManager1 joinSplitManager;
             joinSplitManager = new ClassJoinSplitManager1(fileHandler, excelOperations, batimManager, zuiotManager);
             joinSplitManager.CreateJoinSplitTable();
-            excelOperations.exitForDebug();
+//            excelOperations.exitForDebug();
             //if (customerType > 80)
             //{
             //    ClassJoinSplitManager joinSplitManager;
@@ -110,8 +110,6 @@ namespace PDF2excelConsole
             excelOperations.saveResults(resultfile);
 
             return resultfile;
-
-            return sret;
         }
         public List<int> getTotalNumberOfOwners()
         {

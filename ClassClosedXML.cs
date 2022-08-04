@@ -58,20 +58,20 @@ namespace PDF2excelConsole
             BuildBatimErrorHeader();
             // public void setBoarder(Sheets sn, int irow1, int irow2, int icol1, int icol2, int thickness)
 
-            setBoarder(Sheets.BatimError, 9, 12, 8, 9, 0);
-            setBoarder(Sheets.BatimError, 15, 17, 8, 9, 1);
-            setBoarder(Sheets.BatimError, 19, 21, 8, 9, 2);
-            setBoarder(Sheets.BatimError, 23, 25, 8, 9, 3);
+            //setBoarder(Sheets.BatimError, 9, 12, 8, 9, 0);
+            //setBoarder(Sheets.BatimError, 15, 17, 8, 9, 1);
+            //setBoarder(Sheets.BatimError, 19, 21, 8, 9, 2);
+            //setBoarder(Sheets.BatimError, 23, 25, 8, 9, 3);
 
             
-            IXLWorksheet asheet = getSheet(Sheets.BatimError);
+            //IXLWorksheet asheet = getSheet(Sheets.BatimError);
             //asheet.Column(12).Style.NumberFormat.Format = "0.00000%";
 
-            setColumnPercentFormat(Sheets.BatimError, 12, 3);
+            //setColumnPercentFormat(Sheets.BatimError, 12, 3);
 
-            asheet.Cell(1, 12).Value = ClassUtils.convertPartToFraction1("1/3"); 
-            asheet.Cell(2, 12).Value = ClassUtils.convertPartToFraction1("בשלמות");
-            asheet.Cell(3, 12).Value = ClassUtils.convertPartToFraction1("1/7");
+            //asheet.Cell(1, 12).Value = ClassUtils.convertPartToFraction1("1/3"); 
+            //asheet.Cell(2, 12).Value = ClassUtils.convertPartToFraction1("בשלמות");
+            //asheet.Cell(3, 12).Value = ClassUtils.convertPartToFraction1("1/7");
 
             //createSheet(Sheets.BatimAttachments, "A1", Color.Red);
             //createSheet(Sheets.BatimLeasing, "A2", Color.Red);
@@ -664,27 +664,25 @@ namespace PDF2excelConsole
             HeadTitle(xlJoinSplitSheet, "שווי זכויות + מחוברים (" + NewShekel + ")", 3, 16, 16,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "שווי יחסי (באחוזים)", 3, 17, 17,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
 
-            xlJoinSplitSheet.Columns(1, 17).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-            xlJoinSplitSheet.Columns(1, 17).AdjustToContents();
 
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(2)).Width = 4.55;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(3)).Width = 7.0;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(4)).Width = 9.55;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(5)).Width = 8.0;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(6)).Width = 10.0;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(7)).Width = 8.82;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(8)).Width = 18.0;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(9)).Width = 13.36;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(10)).Width = 8.73;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(11)).Width = 7.36;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(12)).Width = 7.27;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(13)).Width = 7.36;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(14)).Width = 12.73;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(15)).Width = 11.27;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(16)).Width = 12.55;
-            //xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(17)).Width = 7.36;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(1)).Width = 6.82;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(2)).Width = 4.55;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(3)).Width = 7.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(4)).Width = 9.55;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(5)).Width = 8.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(6)).Width = 12.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(7)).Width = 8.82;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(8)).Width = 18.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(9)).Width = 13.36;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(10)).Width = 8.73;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(11)).Width = 9.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(12)).Width = 9.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(13)).Width = 9.0;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(14)).Width = 12.73;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(15)).Width = 11.27;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(16)).Width = 12.55;
+            xlJoinSplitSheet.Column(ClassUtils.ColumnLabel(17)).Width = 9.0;
 
             HeadTitle(xlJoinSplitSheet, "", 4, 1, 1,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "a", 4, 2, 2,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
@@ -705,8 +703,9 @@ namespace PDF2excelConsole
             HeadTitle(xlJoinSplitSheet, "", 4, 17, 17,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 15, true, XLBorderStyleValues.Thin);
             rowNumber = 5;
             setColumnPercentFormat(Sheets.JoinSplit, 13, 5);
+
             xlJoinSplitSheet.Columns(1, 17).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-            xlJoinSplitSheet.Columns(1, 17).AdjustToContents();
+ //           xlJoinSplitSheet.Columns(1, 17).AdjustToContents();
 
             return rowNumber;
         }
@@ -911,8 +910,37 @@ namespace PDF2excelConsole
             public bool ifFrame { get; set; }
             public XLBorderStyleValues Weight { get; set; }
             public int fontSize { get; set; }
-
         }
+        public void putDoubleValueWithParameter(Sheets sheet, double fvalue, int row, int col, PutCellParameters param)
+        {
+            IXLWorksheet asheet = getSheet(sheet);
+            IXLRange sellection;
+            if (param.ifmerge)
+            {
+                sellection = asheet.Range(asheet.Cell(row, col).Address, asheet.Cell(row + param.Rowextension - 1, col + param.Columnextension - 1).Address);
+                sellection.Merge();
+            }
+            else
+            {
+                sellection = asheet.Range(asheet.Cell(row, col).Address, asheet.Cell(row, col).Address);
+            }
+            sellection.Style.Alignment.Vertical = param.xlVAlign;
+            sellection.Style.Alignment.Horizontal = param.xlHAlign;
+            //            sellection.Style.Fill.BackgroundColor = param.colorbackground;
+            sellection.Style.Fill.SetBackgroundColor(param.colorbackground);
+            sellection.Style.Border.BottomBorder = param.Weight;
+            sellection.Style.Border.BottomBorderColor = XLColor.Black; //  XLColor.FromHtml("#FF010101");//                // param.colorbackground;
+            sellection.Style.Border.TopBorder = param.Weight;
+            sellection.Style.Border.TopBorderColor = XLColor.Black;  //param.colorbackground;
+            sellection.Style.Border.LeftBorder = param.Weight;
+            sellection.Style.Border.LeftBorderColor = XLColor.Black;  // param.colorbackground;
+            sellection.Style.Border.RightBorder = param.Weight;
+            sellection.Style.Border.RightBorderColor = XLColor.Black;  //param.colorbackground;
+            sellection.Style.Font.FontSize = param.fontSize;
+            asheet.Cell(row, col).Value = fvalue;
+            sellection.Select();
+        }
+
         public void putValueWithParameter(Sheets sheet, string value, int row, int col, PutCellParameters param)
         {
             IXLWorksheet asheet = getSheet(sheet);
@@ -930,16 +958,14 @@ namespace PDF2excelConsole
             sellection.Style.Alignment.Horizontal = param.xlHAlign;
 //            sellection.Style.Fill.BackgroundColor = param.colorbackground;
             sellection.Style.Fill.SetBackgroundColor(param.colorbackground);
-
-
             sellection.Style.Border.BottomBorder = param.Weight;
-            sellection.Style.Border.BottomBorderColor = param.colorbackground;
+            sellection.Style.Border.BottomBorderColor = XLColor.Black; //  XLColor.FromHtml("#FF010101");//                // param.colorbackground;
             sellection.Style.Border.TopBorder = param.Weight;
-            sellection.Style.Border.TopBorderColor = param.colorbackground;
+            sellection.Style.Border.TopBorderColor = XLColor.Black;  //param.colorbackground;
             sellection.Style.Border.LeftBorder = param.Weight;
-            sellection.Style.Border.LeftBorderColor = param.colorbackground;
+            sellection.Style.Border.LeftBorderColor = XLColor.Black;  // param.colorbackground;
             sellection.Style.Border.RightBorder = param.Weight;
-            sellection.Style.Border.RightBorderColor = param.colorbackground;
+            sellection.Style.Border.RightBorderColor = XLColor.Black;  //param.colorbackground;
             sellection.Style.Font.FontSize =  param.fontSize;
             asheet.Cell(row, col).Value = value;
             sellection.Select();

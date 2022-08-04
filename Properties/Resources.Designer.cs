@@ -59,5 +59,15 @@ namespace PDF2excelConsole.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap registrationReply {
+            get {
+                object obj = ResourceManager.GetObject("registrationReply", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

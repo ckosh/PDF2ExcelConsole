@@ -207,7 +207,7 @@ namespace PDF2excelConsole
                 return 0;
             }
 
-            ClassProcessPDF processPDF = new ClassProcessPDF(PdfFileNames, DebugMode, TempFolder,  customertype);
+            ClassProcessPDF processPDF = new ClassProcessPDF(PdfFileNames, DebugMode, TempFolder);
 //            Log.Info("after process files  ");
             resultExcelFile = processPDF.convert();
 //            Log.Info("after convert files  ");

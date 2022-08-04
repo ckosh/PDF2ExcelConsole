@@ -68,6 +68,8 @@ namespace PDF2excelConsole
             celparam.Columnextension = 1;
             celparam.fontSize = 10;
 
+//            excelOperations.exitForDebug();
+
             foreach (ClassBase nesach in allNesachim)
             {
                 celparam.colorbackground = XLColor.FromColor(  ClassUtils.GetRandomColour() );
@@ -102,6 +104,7 @@ namespace PDF2excelConsole
 
                             int topTatHelkaRow = currentrow;
                             excelOperations.putValueWithParameter(splitpage, presentTatHelka.ToString(), currentrow, 7, celparam);
+//                            excelOperations.exitForDebug();
 
                             for (int own = 0; own < partners; own++)
                             {
@@ -135,18 +138,16 @@ namespace PDF2excelConsole
                                 celparam.xlHAlign = XLAlignmentHorizontalValues.Center;
                                 excelOperations.putValueWithParameter(splitpage, part, currentrow, 10, celparam);
                             }
+//                            excelOperations.exitForDebug();
                             celparam.ifmerge = true;
                             celparam.Rowextension = partners;
                             excelOperations.putValueWithParameter(splitpage, batim.tatHelkot[i].shetah, topTatHelkaRow, 11, celparam);
                             excelOperations.putValueWithParameter(splitpage, batim.tatHelkot[i].partincommon, topTatHelkaRow, 12, celparam);
-                            string percent = ClassUtils.convertPartToPercent(batim.tatHelkot[i].partincommon);
-                            excelOperations.putValueWithParameter(splitpage, percent, topTatHelkaRow, 13, celparam);
+                            double  percent = ClassUtils.convertPartToFraction1(batim.tatHelkot[i].partincommon);
+                            excelOperations.putDoubleValueWithParameter(splitpage, percent, topTatHelkaRow, 13, celparam);
                             excelOperations.putValueWithParameter(splitpage, "", topTatHelkaRow, 14, celparam);
-
                             excelOperations.putValueWithParameter(splitpage, "", topTatHelkaRow, 15, celparam);
-
                             excelOperations.putValueWithParameter(splitpage, "", topTatHelkaRow, 16, celparam);
-
                             excelOperations.putValueWithParameter(splitpage, "", topTatHelkaRow, 17, celparam);
                             currentrow++;
                             celparam.ifmerge = false;
@@ -160,6 +161,7 @@ namespace PDF2excelConsole
                                 celparam.colorbackground = oldColor;
                             }
                         }
+//                        excelOperations.exitForDebug();
                         celparam.xlHAlign = XLAlignmentHorizontalValues.Right;
                         celparam.ifmerge = true;
                         celparam.Rowextension = currentrow - topHelahRow;
@@ -210,8 +212,10 @@ namespace PDF2excelConsole
                                 celparam.xlHAlign = XLAlignmentHorizontalValues.Center;
                                 excelOperations.putValueWithParameter(splitpage, part, topcurrentRow, 10, celparam);
                                 excelOperations.putValueWithParameter(splitpage, part, topcurrentRow, 12, celparam);
-                                string percent = ClassUtils.convertPartToPercent(part);
-                                excelOperations.putValueWithParameter(splitpage, percent, topcurrentRow, 13, celparam);
+                                double percent = ClassUtils.convertPartToFraction1(part);
+                                
+                                excelOperations.putDoubleValueWithParameter(splitpage, percent, topcurrentRow, 13, celparam);
+                                
                                 excelOperations.putValueWithParameter(splitpage, "", topcurrentRow, 14, celparam);
                                 excelOperations.putValueWithParameter(splitpage, "", topcurrentRow, 15, celparam);
                                 excelOperations.putValueWithParameter(splitpage, "", topcurrentRow, 16, celparam);
@@ -244,8 +248,8 @@ namespace PDF2excelConsole
                                 celparam.xlHAlign = XLAlignmentHorizontalValues.Center;
                                 excelOperations.putValueWithParameter(splitpage, part, topcurrentRow, 10, celparam);
                                 excelOperations.putValueWithParameter(splitpage, part, topcurrentRow, 12, celparam);
-                                string percent = ClassUtils.convertPartToPercent(part);
-                                excelOperations.putValueWithParameter(splitpage, percent, topcurrentRow, 13, celparam);
+                                double percent = ClassUtils.convertPartToFraction1(part);
+                                excelOperations.putDoubleValueWithParameter(splitpage, percent, topcurrentRow, 13, celparam);
                                 excelOperations.putValueWithParameter(splitpage, "", topcurrentRow, 14, celparam);
                                 excelOperations.putValueWithParameter(splitpage, "", topcurrentRow, 15, celparam);
                                 excelOperations.putValueWithParameter(splitpage, "", topcurrentRow, 16, celparam);
@@ -280,9 +284,9 @@ namespace PDF2excelConsole
                 }
                 excelOperations.refreshAll();
             }
-            excelOperations.getSheet(Sheets.JoinSplit).Columns(1, 17).AdjustToContents();
+//            excelOperations.exitForDebug();
+            excelOperations.getSheet(Sheets.JoinSplit).Columns(8, 8).AdjustToContents();
             
-
             excelOperations.CorrectFormatForSum(splitpage, 1, sectionStart, currentrow - 1, "@");
             excelOperations.CorrectFormatForSum(splitpage, 11, sectionStart, currentrow - 1, "#,##0.00");
             excelOperations.CorrectFormatForSum(splitpage, 13, sectionStart, currentrow - 1, "0.000%");
@@ -290,6 +294,7 @@ namespace PDF2excelConsole
             excelOperations.CorrectFormatForSum(splitpage, 15, sectionStart, currentrow - 1, "#,##0.00");
             excelOperations.CorrectFormatForSum(splitpage, 16, sectionStart, currentrow - 1, "#,##0.00");
             excelOperations.CorrectFormatForSum(splitpage, 17, sectionStart, currentrow - 1, "0.000%");
+//            excelOperations.exitForDebug();
         }
 
         public int getNumberofPartnersOfHelkaZhuiot(ClassTaboo taboo)
