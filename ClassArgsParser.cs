@@ -15,7 +15,8 @@ namespace PDF2excelConsole
         public int Pop3Port;
         public bool skipMail;
         public bool useSsl;
-        string[] argsKeys = new string[6];
+        public string backupFolder;
+        string[] argsKeys = new string[7];
 
         public ClassArgsParser()
         {
@@ -25,6 +26,7 @@ namespace PDF2excelConsole
             Pop3Port = 110;
             useSsl = false;
             skipMail = false;
+            backupFolder = "";
 
             argsKeys[0] = "delay";
             argsKeys[1] = "tempfolder";
@@ -32,6 +34,7 @@ namespace PDF2excelConsole
             argsKeys[3] = "port";
             argsKeys[4] = "ssl";
             argsKeys[5] = "skipmail";
+            argsKeys[6] = "backup";
         }
 
         public void parseArgs(string argsFile)
@@ -74,6 +77,10 @@ namespace PDF2excelConsole
                     skipMail = Convert.ToBoolean(subs[1]);
                     continue;
                 }
+                else if (subs[0] == argsKeys[6])
+                {
+                    backupFolder = subs[1];
+                }
             }
 
         }
@@ -100,6 +107,10 @@ namespace PDF2excelConsole
         public bool getussl()
         {
             return useSsl;
+        }
+        public string getBackupFolder()
+        {
+            return backupFolder;
         }
     }
 }

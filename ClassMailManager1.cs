@@ -47,8 +47,8 @@ namespace PDF2excelConsole
             localUser = "";
             localPassword = "";
             user = "tabu2excel@grabnadlan.co.il";
-            userdebug = "chaim.koshizky1@grabnadlan.co.il";
-            passworddebug = "3O5!RvHQ6Y5q";
+            userdebug = "chaim.koshizky@grabnadlan.co.il";
+            passworddebug = "T3mp22dJCg21dC";
             password = "L#(Bcw^Wi7{7";
             portOpen = false;
             numberOfMails = 0;
@@ -90,7 +90,7 @@ namespace PDF2excelConsole
 
                     objMessage = objPop3Client.GetMessage(1);
                     message.MessageID = objMessage.Headers.MessageId == null ? "" : objMessage.Headers.MessageId.Trim();
-                    message.FromID = objMessage.Headers.From.Address.Trim();
+                    message.FromID = objMessage.Headers.From.Address.Trim().ToLower();
                     message.FromName = objMessage.Headers.From.DisplayName.Trim();
                     message.Subject = objMessage.Headers.Subject.Trim();
                     MessagePart plainTextPart = null, HTMLTextPart = null;
@@ -158,7 +158,7 @@ namespace PDF2excelConsole
                         {
                             string sub = "!מייל לא מכיל נסחים";
                             sendMail(userMail, sub, null, sub);
-                            userMail = "";
+                            userMail = "0";
                         }
 
                     }
@@ -294,15 +294,20 @@ namespace PDF2excelConsole
         public bool CheckUserPermission()
         {
             bool ret = false;
+            string ss = message.FromID;
+            ss = ss.ToLower();
             Vba2VSTO vba2VSTO = new Vba2VSTO();
-            ret = vba2VSTO.GetRegisteredPermissionFromMongoDBPDF(message.FromID);
+            ret = vba2VSTO.GetRegisteredPermissionFromMongoDBPDF(ss);
             return ret;
         }
         public bool CheckUserRegistered()
         {
             bool ret = false;
+            string ss = message.FromID;
+            ss = ss.ToLower();
+
             Vba2VSTO vba2VSTO = new Vba2VSTO();
-            ret = vba2VSTO.GetRegisteredCustomerFromMongoDBPDF(message.FromID);
+            ret = vba2VSTO.GetRegisteredCustomerFromMongoDBPDF(ss);
 
             return ret;
         }

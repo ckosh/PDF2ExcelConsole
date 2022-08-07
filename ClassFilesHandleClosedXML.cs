@@ -20,6 +20,7 @@ namespace PDF2excelConsole
         public string PDFfolder;
         public bool DebugMode;
         private List<string> PDFfiles;
+        private List<string> ErrorPDFgiles = new List<string>();
 
         public ClassFilesHandleClosedXML(ClassClosedXML closed, bool debugMode, string tempFolder, string[] sarray)
         {
@@ -189,6 +190,11 @@ namespace PDF2excelConsole
                         tw.WriteLine('\n');
                     }
                     tw.Close();
+                    if (NesachType == "" || Gush == "" || Helka == "")
+                    {
+                        ErrorPDFgiles.Add(sss);
+                        throw new Exception(" תקלה בנסח טאבו " + sss);
+                    }
                     closedXML.putParamsToTable(excelRow, NesachType, Gush, Helka);
 
                 }
@@ -197,7 +203,7 @@ namespace PDF2excelConsole
                     string ssss = e.Message.ToString();
                     closedXML.putParamsToTable(excelRow, ssss, "", "");
                 }
-            }
+            }// end for each file
 
 
         }

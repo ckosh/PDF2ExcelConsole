@@ -109,7 +109,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>o32i81mMpbdO1PMWDva4rUq9I7dXx/iNyYu+CscAB9w=</dsig:DigestValue>
+        <dsig:DigestValue>AaJbcuvaiSQZMAuJIaIBKh25CJwpBR2F/PAJFTcWY8w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -498,14 +498,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="208344">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="209368">
       <assemblyIdentity name="PDF2excelConsole" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NDjEn0ZTwC22HCAJIRmCsFeFmr9K3RcPohDNIERrXU4=</dsig:DigestValue>
+        <dsig:DigestValue>oERlPb9Jh6auz2NGGaEL47ghTIC2wNW2MNTutRaIk9U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

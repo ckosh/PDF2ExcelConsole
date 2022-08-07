@@ -29,6 +29,11 @@ namespace PDF2excelConsole
         {
             allBatim = BatimMgr.allBatim;
             allTaboo = TabuMgr.allTaboo;
+
+            if ( allBatim.Count == 0  && allTaboo.Count == 0)
+            {
+                return;
+            }
             List<ClassBase> allNesachim = new List<ClassBase>();
 
             allNesachim = SolrtAllByGushHelkot();

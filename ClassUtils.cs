@@ -878,9 +878,14 @@ namespace PDF2excelConsole
             }
             return ret;
         }
-        public static double   convertPartToFraction1(string parts)
+        public static double convertPartToFraction1(string parts)
         {
             double ret = 0.0;
+            if (parts.Contains("חלק") || parts.Contains("במקרקעין"))
+            {
+                ret = 0.101010101;
+                return ret;
+            }
             parts = String.Concat(parts.Where(c => !Char.IsWhiteSpace(c)));
             if (parts == "בשלמות")
             {
@@ -1271,6 +1276,12 @@ namespace PDF2excelConsole
                 file.Delete();
             }
         }
+        public static void copyFilesFromDirToDir(string fromdir, string toDir)
+        {
+            Directory.CreateDirectory(toDir);
 
+            foreach (var file in Directory.GetFiles(fromdir))
+                File.Copy(file, Path.Combine(toDir, Path.GetFileName(file)));
+        }
     }
 }

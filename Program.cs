@@ -18,9 +18,10 @@ namespace PDF2excelConsole
         static public string resultExcelFile;
         static public bool skipMail = false;
         static public bool ssl = false;
+        static public string backupFolder = "";
 
         static void Main(string[] args)
-        {
+         {
             string userMail;
             List<int> listofOwners;
             int numberOfOwners;
@@ -42,6 +43,7 @@ namespace PDF2excelConsole
                 Pop3Port = argParser.getPort();
                 skipMail = argParser.getSkipMail();
                 ssl = argParser.getussl();
+                backupFolder = argParser.getBackupFolder();
 
 
                 if ( skipMail)
@@ -62,7 +64,7 @@ namespace PDF2excelConsole
                     while (true)
                     {
                         userMail = mailManager.ConnectToPop3();
-                        if (userMail != null)
+                        if (userMail != null && userMail.Length > 1 )
                         {
                             if (userMail.Length > 0)
                             {
@@ -78,43 +80,59 @@ namespace PDF2excelConsole
                                 listofOwners = processPDF.getTotalNumberOfOwners();
                                 numberOfOwners = listofOwners.Sum();
                                 Console.WriteLine("owners " + numberOfOwners.ToString());
-                                Console.WriteLine("files " + PdfFileNames.Length.ToString());
+                                Console.WriteLine("files " + listofOwners.Count.ToString());
 
-                                double totalcost = getTotalCost(PdfFileNames.Length);
-                                Console.WriteLine(numberOfOwners.ToString());
-
+                                double totalcost = getTotalCost(listofOwners);
                                 string sstype = "";
                                 sstype = "המרת נסחים - בניית טבלת מצב נכנס";
                                 string body = totalcost.ToString() + " עלות הסבה" + '\n' + PdfFileNames.Length.ToString() + " מספר נסחים " + '\n' + numberOfOwners.ToString() + " מספר בעלים " + '\n' + sstype;
+                                // copy for backup
+                                mailManager.sendMail("grabnadlan@gmail.com", "העתק תוצאות", resultExcelFile, userMail + '\n' + body);
                                 mailManager.sendMail(userMail, "תוצאות הסבת נסחי טאבו", resultExcelFile, body);
+                                if ( backupFolder != "")
+                                {
+                                    string Todir = backupFolder + "\\" + userMail + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                                    ClassUtils.copyFilesFromDirToDir(Tempfolder, Todir);
+                                }
                                 ClassUtils.deleteAllFilesFromDirectory(Tempfolder);
                                 ClassUtils.deleteAllFilesFromDirectory(Tempfolder + "\\CSV");
-                                mailManager.savecBillingData(userMail, PdfFileNames.Length, resultExcelFile, numberOfOwners, totalcost);
+                                mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost);
                             }
                         }
                         Thread.Sleep(delaySeconds * 1000);
                     }
                 }
             }
-
-
-            
-
-
-            double getTotalCost(int NumberOfPDFFiles)
+            double getTotalCost(List<int> owners)
             {
-                double totalCost = 0;
-                for (int i = 0; i < NumberOfPDFFiles; i++)
+                double ret = 0.0;
+                double basecost = owners.Count * 5.0; // number of files * 5 nis
+                double ownercost = listofOwners.Sum() * 0.2; // number of owners * 0.2 nis
+                if (ownercost > basecost)
                 {
-                    totalCost = totalCost + 5.0;
-                    if (listofOwners[i] > 25)
-                    {
-                        totalCost = totalCost + (listofOwners[i] - 25) * 0.2;
-                    }
+                    ret = ownercost;
                 }
-                return totalCost;
-
+                else
+                {
+                    ret = basecost;
+                }
+                return ret;
             }
+
+            //double getTotalCost(int NumberOfPDFFiles)
+            //{
+            //    double totalCost = 0;
+            //    for (int i = 0; i < NumberOfPDFFiles; i++)
+            //    {
+            //        totalCost = totalCost + 5.0;
+            //        if (listofOwners[i] > 25)
+            //        {
+            //            totalCost = totalCost + (listofOwners[i] - 25) * 0.2;
+            //        }
+            //    }
+            //    return totalCost;
+
+            //}
         }
     }
 }
