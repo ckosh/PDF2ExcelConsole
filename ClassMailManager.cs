@@ -112,13 +112,13 @@ namespace PDF2excelConsole
             MessageModel message = new MessageModel();
             message = GetEmailContent(firstMail, DebugMode);
 
-            if (!removeObstical(message, obsticalMinutes)) //  over 30 minutes in que - remove
-            {
-                deleteMail(firstMail, DebugMode);
-                string sub = "ארעה שגיאה בניתוח הנסחים - שלח את הקבצים שנית ל - grabnadlan@gmail.com";
-                sendMail(message.FromID.ToLower(), sub, null, sub);
-                return 0;
-            }
+            //if (!removeObstical(message, obsticalMinutes)) //  over 30 minutes in que - remove
+            //{
+            //    deleteMail(firstMail, DebugMode);
+            //    string sub = "ארעה שגיאה בניתוח הנסחים - שלח את הקבצים שנית ל - grabnadlan@gmail.com";
+            //    sendMail(message.FromID.ToLower(), sub, null, sub);
+            //    return 0;
+            //}
 
             if (message.Subject == "Registration")
             {

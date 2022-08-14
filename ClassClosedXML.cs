@@ -653,7 +653,7 @@ namespace PDF2excelConsole
             HeadTitle(xlJoinSplitSheet, "ייעוד החלקה", 3, 5, 5,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "שטח החלקה הכלול באיחוד וחלוקה", 3, 6, 6,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "מס' תת חלקה", 3, 7, 7,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
-            HeadTitle(xlJoinSplitSheet, "שם הבעלים / חוכר הרשום", 3, 8, 8,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
+            HeadTitle(xlJoinSplitSheet, "שם הבעלים / חוכר הרשום \n (*) - הערת אזהרה סעיף 126/ 128 ", 3, 8, 8,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "ת.ז / ח.פ", 3, 9, 9,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "חלק הבעלים בנכס", 3, 10, 10,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
             HeadTitle(xlJoinSplitSheet, "שטח תת חלקה רשום (במ\"ר)", 3, 11, 11,  XLAlignmentHorizontalValues.Center, XLAlignmentVerticalValues.Center, 10, true, PattensBlue, 61, true, XLBorderStyleValues.Thin);
@@ -967,7 +967,8 @@ namespace PDF2excelConsole
             sellection.Style.Border.RightBorder = param.Weight;
             sellection.Style.Border.RightBorderColor = XLColor.Black;  //param.colorbackground;
             sellection.Style.Font.FontSize =  param.fontSize;
-            asheet.Cell(row, col).Value = value;
+            asheet.Cell(row, col).SetValue<string>(Convert.ToString(value));
+//            asheet.Cell(row, col).Value = value;
             sellection.Select();
         }
 

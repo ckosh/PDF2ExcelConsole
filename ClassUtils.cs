@@ -402,6 +402,15 @@ namespace PDF2excelConsole
                     return pos;
                 }
             }
+            if (args.Count >= 2)
+            {
+                if (args[0] == "תיקון" &&  args[1] == "משכנתה")
+                {
+                    pos.Add(0);
+                    pos.Add(1);
+                    return pos;
+                }
+            }
             if (args[0] == "משכנתה")
             {
                 pos.Add(0);

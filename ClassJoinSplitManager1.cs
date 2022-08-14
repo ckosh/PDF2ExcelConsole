@@ -136,6 +136,18 @@ namespace PDF2excelConsole
                                     ID = batim.tatHelkot[i].owners[own].idNumber;
                                     part = batim.tatHelkot[i].owners[own].part;
                                 }
+                                // add 126 - 128 remark
+                                if ( batim.tatHelkot[i].remarks.Count > 0)
+                                {
+                                    for ( int jjj = 0; jjj < batim.tatHelkot[i].remarks.Count; jjj++)
+                                    {
+                                        string bbb = batim.tatHelkot[i].remarks[jjj].remarkType;
+                                        if ( bbb.Contains("126") || bbb.Contains("128"))
+                                        {
+                                            name = "* " + name;
+                                        }
+                                    }
+                                }
                                 celparam.ifmerge = false;
                                 celparam.xlHAlign = XLAlignmentHorizontalValues.Right;
                                 excelOperations.putValueWithParameter(splitpage, name, currentrow, 8, celparam);
@@ -208,6 +220,7 @@ namespace PDF2excelConsole
                                 celparam.colorbackground = oldColor;
 
                                 name = taboo.leasings[lastone].leasingOwners[j].LeaserName;
+                                name = get126_128Leasingremark(taboo, name) + " " + name;
                                 ID = taboo.leasings[lastone].leasingOwners[j].idNumber;
                                 part = taboo.leasings[lastone].leasingOwners[j].LeaserPart;
                                 celparam.ifmerge = false;
@@ -244,6 +257,7 @@ namespace PDF2excelConsole
                                 celparam.colorbackground = oldColor;
 
                                 name = taboo.zhuiotOwners[j].ownerName;
+                                name = get126_128Leasingremark(taboo, name) + " " +  name;
                                 ID = taboo.zhuiotOwners[j].idNumber;
                                 part = taboo.zhuiotOwners[j].ownerPart;
                                 celparam.ifmerge = false;
@@ -450,6 +464,32 @@ namespace PDF2excelConsole
             all = sortDictionaryByHelka(dictionaryofhelkot);
 
             return all;
+        }
+        
+        private string get126_128Leasingremark(ClassTaboo taboo , string name)
+        {
+            string ret = "";
+            char[] charsToTrim = { ' ' };
+            name = name.Trim(charsToTrim);
+            if (taboo.remarks != null)
+            {
+                for (int i = 0; i < taboo.remarks.Count; i++)
+                {
+                    if (taboo.remarks[i].actionType.Contains("126") || taboo.remarks[i].actionType.Contains("128"))
+                    {
+                        for (int j = 0; j < taboo.remarks[i].remarks.Count; j++)
+                        {
+                            if (taboo.remarks[i].remarks[j].Contains(name))
+                            {
+                                ret = "*";
+                                return ret;
+                            }
+                        }
+                    }
+                }
+
+            }
+            return ret;
         }
 
     }

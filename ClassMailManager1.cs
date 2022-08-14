@@ -31,10 +31,12 @@ namespace PDF2excelConsole
         public string localUser;
         public string localPassword;
         public List<int> listofOwners = new List<int>();
+        List<string> oldMailID;
         MessageModel1 message;
         OpenPop.Mime.Message objMessage;
         string tempFolder;
         bool debugMode;
+        int messageItem;
 
         int NumberOfPDFFiles = 0;
         int numberOfOwners = 0;
@@ -55,6 +57,7 @@ namespace PDF2excelConsole
             tempFolder = temp;
             message = new MessageModel1();
             debugMode = debug;
+            oldMailID = new List<string>();
 
             host = "mail.grabnadlan.co.il";
 
@@ -75,101 +78,138 @@ namespace PDF2excelConsole
 
         public string ConnectToPop3()
         {
+            userMail = "";
+            objPop3Client = new Pop3Client();
             
             try
             {
-                objPop3Client = new Pop3Client();
                 objPop3Client.Connect(host, port, useSsl);
                 objPop3Client.Authenticate(localUser, localPassword);
-                numberOfMails = objPop3Client.GetMessageCount();
-                portOpen = true;
+            }
+            catch(Exception ex)
+            {
+                return userMail;
+            }
 
-                if (numberOfMails > 0)
+
+
+            if (oldMailID.Count > 0)
+            {
+                for (int i = 0; i < oldMailID.Count; i++)
                 {
-                    /// read mail content
-
-                    objMessage = objPop3Client.GetMessage(1);
-                    message.MessageID = objMessage.Headers.MessageId == null ? "" : objMessage.Headers.MessageId.Trim();
-                    message.FromID = objMessage.Headers.From.Address.Trim().ToLower();
-                    message.FromName = objMessage.Headers.From.DisplayName.Trim();
-                    message.Subject = objMessage.Headers.Subject.Trim();
-                    MessagePart plainTextPart = null, HTMLTextPart = null;
-                    plainTextPart = objMessage.FindFirstPlainTextVersion();
-                    message.Body = (plainTextPart == null ? "" : plainTextPart.GetBodyAsText().Trim());
-                    HTMLTextPart = objMessage.FindFirstHtmlVersion();
-                    message.Html = (HTMLTextPart == null ? "" : HTMLTextPart.GetBodyAsText().Trim());
-                    List<MessagePart> attachment = objMessage.FindAllAttachments();
-                    userMail = message.FromID;
-
-                    if (attachment.Count > 0)
+                    if ( DeleteMessageByMessageId(oldMailID[i]) )
                     {
-                        PdfFileNames = new string[attachment.Count];
-                        for (int j = 0; j < attachment.Count; j++)
-                        {
-                            byte[] content = attachment[j].Body;
-                            string[] stringParts = attachment[j].FileName.Split(new char[] { '.' });
-                            string stringType = stringParts[1];
-                            BinaryWriter Writer = null;
-                            string Name = tempFolder + "\\" + attachment[j].FileName;
-                            PdfFileNames[j] = attachment[j].FileName;
-                            try
-                            {
-                                // Create a new stream to write to the file
-                                Writer = new BinaryWriter(File.OpenWrite(Name));
-
-                                // Writer raw data                
-                                Writer.Write(content);
-                                Writer.Flush();
-                                Writer.Close();
-                            }
-                            catch
-                            {
-                            }
-
-                        }
-                        message.FileName = attachment[0].FileName.Trim();
-                        message.Attachment = attachment;
+                        Console.WriteLine("delete last error deletion " + i.ToString() );
                     }
-                    /// parse content
-                    if (message.Subject == "Registration")
+                }
+            }
+
+
+            numberOfMails = objPop3Client.GetMessageCount();
+            portOpen = true;
+                
+
+            if (numberOfMails > 0)
+            {
+                /// read mail content
+                for ( messageItem = 1; messageItem <= numberOfMails;  messageItem++)
+                {
+                    if (oldMailID.Count > 0  && isOldMessage(messageItem))
                     {
-                        if (!RegisterANewUser())
-                        {
-                            userMail = "0";
-                        }
+                        continue;
                     }
                     else
                     {
-                        if (!CheckUserRegistered())
+                        break;
+                    }
+                }
+                objMessage = objPop3Client.GetMessage(messageItem);
+                message.MessageID = objMessage.Headers.MessageId == null ? "" : objMessage.Headers.MessageId.Trim();
+                message.FromID = objMessage.Headers.From.Address.Trim().ToLower();
+                message.FromName = objMessage.Headers.From.DisplayName.Trim();
+                message.Subject = objMessage.Headers.Subject.Trim();
+                MessagePart plainTextPart = null, HTMLTextPart = null;
+                plainTextPart = objMessage.FindFirstPlainTextVersion();
+                message.Body = (plainTextPart == null ? "" : plainTextPart.GetBodyAsText().Trim());
+                HTMLTextPart = objMessage.FindFirstHtmlVersion();
+                message.Html = (HTMLTextPart == null ? "" : HTMLTextPart.GetBodyAsText().Trim());
+                List<MessagePart> att = objMessage.FindAllAttachments();
+                List<MessagePart> attachment = new List<MessagePart>();
+                for ( int j = 0; j < att.Count; j++)
+                {
+                    if (  Path.GetExtension(att[j].FileName).ToLower() == ".pdf" )
+                    {
+                        attachment.Add(att[j]);
+                    }
+                }
+
+                userMail = message.FromID;
+
+                if (attachment.Count > 0)
+                {
+                    PdfFileNames = new string[attachment.Count];
+                    for (int j = 0; j < attachment.Count; j++)
+                    {
+                        byte[] content = attachment[j].Body;
+                        string[] stringParts = attachment[j].FileName.Split(new char[] { '.' });
+                        string stringType = stringParts[1];
+                        BinaryWriter Writer = null;
+                        string Name = tempFolder + "\\" + attachment[j].FileName;
+                        PdfFileNames[j] = attachment[j].FileName;
+                        try
                         {
-                            quitWithnote(userMail, "משתמש אינו רשום לשימוש");
+                            // Create a new stream to write to the file
+                            Writer = new BinaryWriter(File.OpenWrite(Name));
+
+                            // Writer raw data                
+                            Writer.Write(content);
+                            Writer.Flush();
+                            Writer.Close();
                         }
-                        if (!CheckUserPermission())
+                        catch
                         {
-                            quitWithnote(userMail, "משתמש אינו מאושר לשימוש");
-                        }
-                        NumberOfPDFFiles = 0;
-                        numberOfOwners = 0;
-                        if (message.Attachment != null)
-                        {
-                            NumberOfPDFFiles = message.Attachment.Count;
-                        }
-                        if (NumberOfPDFFiles == 0)
-                        {
-                            string sub = "!מייל לא מכיל נסחים";
-                            sendMail(userMail, sub, null, sub);
-                            userMail = "0";
                         }
 
                     }
+                    message.FileName = attachment[0].FileName.Trim();
+                    message.Attachment = attachment;
                 }
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                ClosePop3(userMail);
+                /// parse content
+                if (message.Subject == "Registration")
+                {
+                    if (!RegisterANewUser())
+                    {
+                        userMail = "0";
+                    }
+                }
+                else
+                {
+                    if (!CheckUserRegistered())
+                    {
+                        quitWithnote(userMail, "משתמש אינו רשום לשימוש");
+                    }
+                    if (!CheckUserPermission())
+                    {
+                        quitWithnote(userMail, "משתמש אינו מאושר לשימוש");
+                    }
+                    NumberOfPDFFiles = 0;
+                    numberOfOwners = 0;
+                    if (message.Attachment != null)
+                    {
+                        NumberOfPDFFiles = message.Attachment.Count;
+                    }
+                    if (NumberOfPDFFiles == 0)
+                    {
+                        string sub = "!מייל לא מכיל נסחים";
+                        sendMail(userMail, sub, null, sub);
+                        userMail = "0";
+                    }
+
+                }
             }
-            catch (Exception e)
-            {
-                return "";
-            }
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ClosePop3(userMail);
+           
             return userMail;
         }
 
@@ -177,7 +217,28 @@ namespace PDF2excelConsole
         {
             if ( userMail != null && userMail.Length > 0 )
             {
-                deleteMail(1);
+                try
+                {
+                    if (objPop3Client.GetMessageCount() > 0)
+                    {
+                        deleteMail(messageItem);
+                    }
+                    
+                }
+                catch(Exception e)
+                {
+                    oldMailID.Add(objPop3Client.GetMessageHeaders(messageItem).MessageId);
+                } 
+                // try delete old mail
+                //if ( oldMailID.Count > 0)
+                //{
+                //    for ( int i = 0; i < oldMailID.Count; i++)
+                //    {
+                //        DeleteMessageByMessageId(oldMailID[i]);
+                //    }
+                    
+                //}
+
                 objPop3Client.Disconnect();
                 objPop3Client.Dispose();
                 portOpen = false;
@@ -245,6 +306,7 @@ namespace PDF2excelConsole
                         body0 = body0 + cust.Office_Name + Environment.NewLine;
                         body0 = body0 + cust.Phone;
                         ConfirmationMailSimple("grabnadlan@gmail.com", sub, body0);
+                        Console.WriteLine("new registration " + cust.Mail + " " + cust.Office_Name);
 
                     }
                 }
@@ -321,13 +383,23 @@ namespace PDF2excelConsole
         {
 
             sendMail(mailaddress, note, null, note);
-            deleteMail(1);
+            deleteMail(messageItem);
             deleteAllFilesFromDirectory(tempFolder);
         }
 
         public void deleteMail(int num)
         {
-            objPop3Client.DeleteMessage(num);
+            try
+            {
+                bool bb = false;
+                if (bb) throw new Exception("ggg");
+                objPop3Client.DeleteMessage(num);
+            }
+            catch(Exception ex)
+            {
+                oldMailID.Add(objPop3Client.GetMessageHeaders(num).MessageId);
+                Console.WriteLine("Error message delete " + num.ToString() + " " + objPop3Client.GetMessageHeaders(num).MessageId );
+            }
         }
 
         public class MessageModel1
@@ -444,7 +516,43 @@ namespace PDF2excelConsole
             return PdfFileNames;
         }
 
+        public bool DeleteMessageByMessageId( string messageId)
+        {
+            int messageCount = objPop3Client.GetMessageCount();
 
+            for (int messageItem = 1; messageItem <= messageCount; messageItem++)
+            {
+                if (objPop3Client.GetMessageHeaders(messageItem).MessageId == messageId)
+                {
+                    try
+                    {
+                        objPop3Client.DeleteMessage(messageItem);
+                    }
+                    catch(Exception e)
+                    {
+                        return false;
+                    }
+                    
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool isOldMessage( int messageItem)
+        {
+            bool bret = false;
+            objMessage = objPop3Client.GetMessage(messageItem);
+            for (int i = 0; i < oldMailID.Count; i++)
+            {
+                if (oldMailID[i].Equals(objPop3Client.GetMessageHeaders(messageItem).MessageId))
+                {
+                    bret = true;
+                    return bret;
+                }
+            }
+            
+            return bret;
+        }
     }
 }
 

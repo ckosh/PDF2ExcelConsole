@@ -25,7 +25,7 @@ namespace PDF2excelConsole
             string userMail;
             List<int> listofOwners;
             int numberOfOwners;
-            Console.WriteLine("Start");
+            Console.WriteLine("Start 12/08/2022 mail by ID ");
             if (args.Length == 0)
             {
                 Console.WriteLine("Invalid args");
@@ -87,16 +87,19 @@ namespace PDF2excelConsole
                                 sstype = "המרת נסחים - בניית טבלת מצב נכנס";
                                 string body = totalcost.ToString() + " עלות הסבה" + '\n' + PdfFileNames.Length.ToString() + " מספר נסחים " + '\n' + numberOfOwners.ToString() + " מספר בעלים " + '\n' + sstype;
                                 // copy for backup
-                                mailManager.sendMail("grabnadlan@gmail.com", "העתק תוצאות", resultExcelFile, userMail + '\n' + body);
+//                                mailManager.sendMail("grabnadlan@gmail.com", "העתק תוצאות", resultExcelFile, userMail + '\n' + body);
                                 mailManager.sendMail(userMail, "תוצאות הסבת נסחי טאבו", resultExcelFile, body);
-                                if ( backupFolder != "")
+                                if ( backupFolder != ""  || userMail != "chaim.koshizky@gmail.com")
                                 {
                                     string Todir = backupFolder + "\\" + userMail + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
                                     ClassUtils.copyFilesFromDirToDir(Tempfolder, Todir);
                                 }
                                 ClassUtils.deleteAllFilesFromDirectory(Tempfolder);
                                 ClassUtils.deleteAllFilesFromDirectory(Tempfolder + "\\CSV");
-                                mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost);
+                                if (userMail != "chaim.koshizky@gmail.com")
+                                {
+                                    mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost);
+                                }
                             }
                         }
                         Thread.Sleep(delaySeconds * 1000);
