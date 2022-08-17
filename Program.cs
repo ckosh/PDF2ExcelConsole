@@ -25,7 +25,7 @@ namespace PDF2excelConsole
             string userMail;
             List<int> listofOwners;
             int numberOfOwners;
-            Console.WriteLine("Start 12/08/2022 mail by ID ");
+            Console.WriteLine("Start 12/08/2022 mail by ID - project number");
             if (args.Length == 0)
             {
                 Console.WriteLine("Invalid args");
@@ -85,7 +85,8 @@ namespace PDF2excelConsole
                                 double totalcost = getTotalCost(listofOwners);
                                 string sstype = "";
                                 sstype = "המרת נסחים - בניית טבלת מצב נכנס";
-                                string body = totalcost.ToString() + " עלות הסבה" + '\n' + PdfFileNames.Length.ToString() + " מספר נסחים " + '\n' + numberOfOwners.ToString() + " מספר בעלים " + '\n' + sstype;
+                                string ffff = totalcost.ToString("0.#");
+                                string body = ffff + " עלות הסבה" + '\n' + PdfFileNames.Length.ToString() + " מספר נסחים " + '\n' + numberOfOwners.ToString() + " מספר בעלים " + '\n' + sstype;
                                 // copy for backup
 //                                mailManager.sendMail("grabnadlan@gmail.com", "העתק תוצאות", resultExcelFile, userMail + '\n' + body);
                                 mailManager.sendMail(userMail, "תוצאות הסבת נסחי טאבו", resultExcelFile, body);
@@ -98,7 +99,7 @@ namespace PDF2excelConsole
                                 ClassUtils.deleteAllFilesFromDirectory(Tempfolder + "\\CSV");
                                 if (userMail != "chaim.koshizky@gmail.com")
                                 {
-                                    mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost);
+                                    mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost, mailManager.getProject());
                                 }
                             }
                         }

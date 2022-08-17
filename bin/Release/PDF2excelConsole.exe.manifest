@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GrabNadlanLicense.dll" size="26624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GrabNadlanLicense.dll" size="27136">
       <assemblyIdentity name="GrabNadlanLicense" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AaJbcuvaiSQZMAuJIaIBKh25CJwpBR2F/PAJFTcWY8w=</dsig:DigestValue>
+        <dsig:DigestValue>90Ck0vitvgAbkHv6hNqyu1BtA4Deyc0EDcOKNls7esc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -498,14 +498,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="210904">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="211416">
       <assemblyIdentity name="PDF2excelConsole" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Q7gQkiencDoAc8K2nbyYp1mVHzl6MQCUdimypD/piak=</dsig:DigestValue>
+        <dsig:DigestValue>vYstKff4tJWeNMnEVdQ0jeY6DHc7NWtVPtQBn3fdLu8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

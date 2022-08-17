@@ -1069,6 +1069,11 @@ namespace PDF2excelConsole
             {
                 retVal = 5;
             }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "רישום", "לפי", "צו", "בית", "משפט"))
+            {
+                retVal = 5;
+            }
+
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "מכר", "לפי", "סעיף", "5", "לחוק"))
             {
                 retVal = 5;
@@ -1145,6 +1150,10 @@ namespace PDF2excelConsole
                 retVal = 2;
             }
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "תיקון", "רישום"))
+            {
+                retVal = 2;
+            }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "תיקון", "ירושה"))
             {
                 retVal = 2;
             }

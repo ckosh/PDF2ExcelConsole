@@ -135,7 +135,7 @@ namespace PDF2excelConsole
                         fillList(mrt.mortgageOwner.ownerIDNumber, mrt.mortgageOwner.ownerName.Count);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, owners, 6, mrt.mortgageOwner.ownerName[i]);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, owners, 7, mrt.mortgageOwner.ownerIDType[i]);
-                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, owners, 8, mrt.mortgageOwner.ownerIDNumber[i]);
+                        excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Mortgage, owners, 8, mrt.mortgageOwner.ownerIDNumber[i]);
                         owners++;
                     }
                     for (int i = 0; i < mrt.mortgageBorower.borowerName.Count; i++)
@@ -144,7 +144,7 @@ namespace PDF2excelConsole
                         fillList(mrt.mortgageBorower.borowerIDNumber, mrt.mortgageBorower.borowerName.Count);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, borrow, 9, mrt.mortgageBorower.borowerName[i]);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, borrow, 10, mrt.mortgageBorower.borowerIDType[i]);
-                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Mortgage, borrow, 11, mrt.mortgageBorower.borowerIDNumber[i]);
+                        excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Mortgage, borrow, 11, mrt.mortgageBorower.borowerIDNumber[i]);
                         borrow++;
                     }
                     for (int i = 0; i < mrt.remarks.Count; i++)
@@ -272,7 +272,7 @@ namespace PDF2excelConsole
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 5, own.transactionType);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 6, own.LeaserName);
                         excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 7, own.idType);
-                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 8, own.idNumber);
+                        excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Leasing, sectionrow, 8, own.idNumber);
                         excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Leasing, sectionrow, 9, own.LeaserPart);
 //                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Leasing, sectionrow, 9, own.LeaserPart);
                         excelOperations.refreshAll();
@@ -351,7 +351,7 @@ namespace PDF2excelConsole
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 6, own.transactionType);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 7, own.ownerName);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 8, own.idType);
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 9, own.idNumber);
+                    excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Owner, currentrow, 9, own.idNumber);
                     excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.Owner, currentrow, 10, own.ownerPart);
                     excelOperations.PutDoubleValueInSheetRowColumn(ClassClosedXML.Sheets.Owner, currentrow, 11, ClassUtils.convertPartToFraction1(own.ownerPart));
 

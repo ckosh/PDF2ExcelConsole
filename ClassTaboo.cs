@@ -738,7 +738,28 @@ namespace PDF2excelConsole
                             }
                             else
                             {
-                                mortgage.propPart = l2[top + 2] + " " + l2[top + 1] + " " + l2[top];
+                                if ( l2.Count-1 < (top+2))
+                                {
+                                    mortgage.propPart =  l2[top + 1] + " " + l2[top];
+                                    rowNumberj++;
+                                    rowNumberj++;
+                                    l2 = slExcelData.DataRows[rowNumberj];
+                                    l2.Reverse();
+                                    mortgage.propPart =  mortgage.propPart + " " + l2[0] ;
+                                    rowNumberj--;
+                                }
+                                else
+                                {
+                                    try
+                                    {
+                                        mortgage.propPart = l2[top + 2] + " " + l2[top + 1] + " " + l2[top];
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Console.WriteLine("error");
+                                    }
+                                }
+
                             }
                         }
                     }

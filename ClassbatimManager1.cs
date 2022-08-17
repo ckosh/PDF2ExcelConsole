@@ -106,7 +106,7 @@ namespace PDF2excelConsole
                             subremarks++;
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimRemarks, subremarks, 5, rem.name[k]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimRemarks, subremarks, 6, rem.idType[k]);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimRemarks, subremarks, 7, rem.idNumber[k]);
+                            excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.BatimRemarks, subremarks, 7, rem.idNumber[k]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimRemarks, subremarks, 8, rem.part[k]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimRemarks, subremarks, 9, rem.shtar[k]);
                         }
@@ -171,7 +171,7 @@ namespace PDF2excelConsole
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimMortgage, currentrow, 4, mort.mtype[j1]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimMortgage, currentrow, 5, mort.Name[j1]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimMortgage, currentrow, 6, mort.idType[j1]);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimMortgage, currentrow, 7, mort.idNumber[j1]);
+                            excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.BatimMortgage, currentrow, 7, mort.idNumber[j1]);
                             excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.BatimMortgage, currentrow, 8, mort.part[j1]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimMortgage, currentrow, 9, mort.shtar[j1]);
                             if ( j1 == 0) excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimMortgage, currentrow, 10, mort.grade[0]);
@@ -359,7 +359,7 @@ namespace PDF2excelConsole
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimOwners, currentrow, 12, batim.tatHelkot[i].owners[j].transaction);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimOwners, currentrow, 13, batim.tatHelkot[i].owners[j].name);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimOwners, currentrow, 14, batim.tatHelkot[i].owners[j].idType);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimOwners, currentrow, 15, batim.tatHelkot[i].owners[j].idNumber);
+                            excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.BatimOwners, currentrow, 15, batim.tatHelkot[i].owners[j].idNumber);
                             excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.BatimOwners, currentrow, 16, batim.tatHelkot[i].owners[j].part);
                             excelOperations.PutDoubleValueInSheetRowColumn(ClassClosedXML.Sheets.BatimOwners, currentrow, 17, ClassUtils.convertPartToFraction1(batim.tatHelkot[i].owners[j].part));
  //                           excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimOwners, currentrow, 17, ClassUtils.convertPartToPercent(batim.tatHelkot[i].owners[j].part));

@@ -176,8 +176,13 @@ namespace PDF2excelConsole
                             {
                                 if (ClassUtils.isArrayIncludString(converted, "גוש") > -1)
                                 {
-                                    Gush = converted[converted.Count - 2];
-                                    Helka = converted[converted.Count - 4];
+                                    int offset = 0;
+                                    if(ClassUtils.isArrayIncludString(converted, "שומה") > -1)
+                                    {
+                                        offset = 1;
+                                    }
+                                    Gush = converted[converted.Count - 2- offset];
+                                    Helka = converted[converted.Count - 4- offset];
                                     if (ClassUtils.isArrayIncludString(converted, "תת") > -1 && ClassUtils.isArrayIncludString(converted, "חלקה:") > -1)
                                     {
                                         batimCSV.RemoveAt(batimCSV.Count - 1);

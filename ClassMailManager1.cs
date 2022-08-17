@@ -373,10 +373,10 @@ namespace PDF2excelConsole
 
             return ret;
         }
-        public void savecBillingData(string e_mail, int numberOfFiles, string excelFileName, int numOfOwners, double totalCost)
+        public void savecBillingData(string e_mail, int numberOfFiles, string excelFileName, int numOfOwners, double totalCost, string project)
         {
             Vba2VSTO vba2VSTO = new Vba2VSTO();
-            vba2VSTO.SaveBillingData(e_mail, numberOfFiles, excelFileName, numOfOwners, totalCost);
+            vba2VSTO.SaveBillingData(e_mail, numberOfFiles, excelFileName, numOfOwners, totalCost, project);
         }
 
         public void quitWithnote(string mailaddress, string note)
@@ -447,6 +447,7 @@ namespace PDF2excelConsole
             }
             catch (Exception e)
             {
+
             }
             message.Dispose();
             client.Dispose();
@@ -506,7 +507,7 @@ namespace PDF2excelConsole
             }
             catch (Exception e)
             {
-
+                Console.WriteLine("Error sending mail to " + to );
             }
             message.Dispose();
             client.Dispose();
@@ -552,6 +553,17 @@ namespace PDF2excelConsole
             }
             
             return bret;
+        }
+        public string getProject()
+        {
+            string project = "";
+            char[] charsToTrim = {' ' };
+            string[] subs = message.Subject.Split('-');
+            if (subs.Length > 1)
+            {
+                project = subs[1].Trim(charsToTrim);
+            }
+            return project;
         }
     }
 }
