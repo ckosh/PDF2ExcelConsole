@@ -78,6 +78,7 @@ namespace PDF2excelConsole
 
         public string ConnectToPop3()
         {
+            bool totalquit = false;
             userMail = "";
             objPop3Client = new Pop3Client();
             
@@ -179,37 +180,41 @@ namespace PDF2excelConsole
                 {
                     if (!RegisterANewUser())
                     {
-                        userMail = "0";
+                        totalquit = true;
                     }
                 }
                 else
                 {
-                    if (!CheckUserRegistered())
+                    if (CheckUserRegistered())
+                    {
+                        if (!CheckUserPermission())
+                        {
+                            quitWithnote(userMail, "משתמש אינו מאושר לשימוש");
+                        }
+                        NumberOfPDFFiles = 0;
+                        numberOfOwners = 0;
+                        if (message.Attachment != null)
+                        {
+                            NumberOfPDFFiles = message.Attachment.Count;
+                        }
+                        if (NumberOfPDFFiles == 0)
+                        {
+                            string sub = "!מייל לא מכיל נסחים";
+                            sendMail(userMail, sub, null, sub);
+                            userMail = "0";
+                        }
+                    }
+                    else
                     {
                         quitWithnote(userMail, "משתמש אינו רשום לשימוש");
+                        totalquit = true;
                     }
-                    if (!CheckUserPermission())
-                    {
-                        quitWithnote(userMail, "משתמש אינו מאושר לשימוש");
-                    }
-                    NumberOfPDFFiles = 0;
-                    numberOfOwners = 0;
-                    if (message.Attachment != null)
-                    {
-                        NumberOfPDFFiles = message.Attachment.Count;
-                    }
-                    if (NumberOfPDFFiles == 0)
-                    {
-                        string sub = "!מייל לא מכיל נסחים";
-                        sendMail(userMail, sub, null, sub);
-                        userMail = "0";
-                    }
-
                 }
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ClosePop3(userMail);
-           
+            if (totalquit)  userMail = "";
+
             return userMail;
         }
 
@@ -242,6 +247,7 @@ namespace PDF2excelConsole
                 objPop3Client.Disconnect();
                 objPop3Client.Dispose();
                 portOpen = false;
+               
 
             }
         }
