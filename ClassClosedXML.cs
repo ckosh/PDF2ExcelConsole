@@ -769,11 +769,13 @@ namespace PDF2excelConsole
             asheet.SheetView.FreezeRows(rowtofreez);
         }
 
-        public void putParamsToTable(int row, string nesachType, string gush, string helka)
+        public void putParamsToTable(int row, string nesachType, string gush, string helka, string date , string docNum)
         {
             xlFilesWorkSheet.Cell(row, 2).Value = gush;
             xlFilesWorkSheet.Cell(row,3).Value = helka;
             xlFilesWorkSheet.Cell(row, 4).Value = nesachType;
+            xlFilesWorkSheet.Cell(row, 5).Value = date;
+            xlFilesWorkSheet.Cell(row, 6).Value = docNum;
         }
 
         public void refreshAll()
@@ -863,16 +865,19 @@ namespace PDF2excelConsole
 
         public void ListPdfFiles(string[] files)
         {
-            CreateTitle(1, 1, 1, "שם נסח", 40.0);
+            CreateTitle(1, 1, 1, "שם קובץ", 40.0);
             CreateTitle(1, 2, 2, "גוש", 10.0);
             CreateTitle(1, 3, 3, "חלקה", 10.0);
             CreateTitle(1, 4, 4, "סוג נסח", 15.0);
+            CreateTitle(1, 5, 5, "תאריך", 15.0);
+            CreateTitle(1, 6, 6, "נסח מס'", 15.0);
             int startRow = 2;
             PDFFolder = Path.GetDirectoryName(files[0]);
             for (int i = 0; i < files.Length; i++)
             {
                 string result = Path.GetFileName(files[i]);
                 xlFilesWorkSheet.Cell(i+startRow , 1 ).Value = result;
+                xlFilesWorkSheet.Cell(i + startRow, 1).Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
             }
         }
 

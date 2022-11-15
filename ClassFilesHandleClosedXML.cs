@@ -72,6 +72,8 @@ namespace PDF2excelConsole
                     string NesachType = "";
                     string Gush = "";
                     string Helka = "";
+                    string Date = "";
+                    string docNumber = "";
                     List<string> CSVPages = new List<string>();
                     int num;
                     string ssslower = sss;
@@ -131,12 +133,14 @@ namespace PDF2excelConsole
                             {
                                 case 0:
                                     realNesach = ClassUtils.isItARealNesach(converted, "תאריך");
+                                    Date = converted[0];
                                     break;
                                 case 2:
                                     realNesach = ClassUtils.isItARealNesach(converted, "שעה:");
                                     break;
                                 case 3:
                                     realNesach = ClassUtils.isItARealNesach(converted, "נסח");
+                                    docNumber = converted[0];
                                     break;
                                 case 4:
                                     realNesach = ClassUtils.isItARealNesach(converted, "מקרקעין:");
@@ -200,13 +204,13 @@ namespace PDF2excelConsole
                         ErrorPDFgiles.Add(sss);
                         throw new Exception(" תקלה בנסח טאבו " + sss);
                     }
-                    closedXML.putParamsToTable(excelRow, NesachType, Gush, Helka);
+                    closedXML.putParamsToTable(excelRow, NesachType, Gush, Helka, Date , docNumber);
 
                 }
                 catch (Exception e)
                 {
                     string ssss = e.Message.ToString();
-                    closedXML.putParamsToTable(excelRow, ssss, "", "");
+                    closedXML.putParamsToTable(excelRow, ssss, "", "", "", "");
                 }
             }// end for each file
 

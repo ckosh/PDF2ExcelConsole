@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PDF2excelConsole
 {
@@ -811,7 +812,8 @@ namespace PDF2excelConsole
             int idtypelocation = findIDTypeLocation(argVal);
             if (idtypelocation > -1)
             {
-                if (ClassUtils.containHebrew(argVal[idtypelocation + 1]))
+//                if (ClassUtils.containHebrew(argVal[idtypelocation + 1]))
+                if ( false )
                 {
                     results[2] = argVal[idtypelocation] + " " + argVal[idtypelocation+1];
                     markVal[idtypelocation] = 1;
@@ -825,6 +827,16 @@ namespace PDF2excelConsole
                     markVal[idtypelocation] = 1;
                     results[3] = argVal[idtypelocation + 1];
                     markVal[idtypelocation + 1] = 1;
+                }
+            }
+            else
+            {
+                results[2] = "";
+                int pos =  findIdNumberLocation(argVal);
+                if (pos > -1)
+                {
+                    results[3] = argVal[pos];
+                    markVal[pos] = 1;
                 }
             }
 
@@ -865,6 +877,24 @@ namespace PDF2excelConsole
             }
             return ret;
         }
+        // check if string contains sequential 5 digits 
+        public static int findIdNumberLocation(List<string> argVal)
+        {
+            int ret = -1;
+           
+            for ( int i = 0; i< argVal.Count -2; i++)
+            {
+                string sss = argVal[i];
+                if (sss.Length < 5) continue;
+                string ttt = sss.Substring(sss.Length - 5);
+                if ( ttt.All(char.IsDigit))
+                {
+                    return i;
+                }
+            }
+            return ret;
+        }
+
         public static int findkeyinLeasing(List<string> argVal,string ss)
         {
             int ret = -1;

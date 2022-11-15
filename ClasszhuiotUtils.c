@@ -1173,6 +1173,10 @@ namespace PDF2excelConsole
             {
                 retVal = 2;
             }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "החזרת", "רישום"))
+            {
+                retVal = 2;
+            }
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "שכירות"))
             {
                 retVal = 1;
@@ -1184,6 +1188,10 @@ namespace PDF2excelConsole
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "פיצול"))
             {
                 retVal = 1;
+            }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "רפיצול"))
+            {
+            retVal = 1;
             }
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "ירושה"))
             {
@@ -1209,6 +1217,11 @@ namespace PDF2excelConsole
             {
                 retVal = 1;
             }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "הקניה"))
+            {
+                retVal = 1;
+            }
+
             return retVal;
         }
         public static int analyzeActionMortgage(List<string> rawValue, int iv, ref string cont, ref string cont1, ref bool checkList)

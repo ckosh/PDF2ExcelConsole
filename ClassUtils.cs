@@ -1052,7 +1052,7 @@ namespace PDF2excelConsole
             if (reverse) temp = reverseOrder(temp);
             string sss;
 
-            if (ClassUtils.isStringOneOfParams(temp[iv], "העברת", "שכירות", "ללא", "תמורה", "תיקון", "תנאים", "בשכירות", "בצוואה", "בירושה", "טעות", "סופר", "עודף", "חלקית", "בחוכר", "הסכם", "עפ\"י", "פיצול", "ירושה", "מכר", "רישום", "בעלות", "לאחר", "הסדר", "שנוי", "שם", "חלוקה", "איחוד", "רכישה", "לפי", "חק", "רכישת", "צוואה", "עדכון", "התאמת" ,"משותף", "צו", "בית", "על", "פי","שינוי","משפט"))
+            if (ClassUtils.isStringOneOfParams(temp[iv], "העברת", "שכירות", "ללא", "תמורה", "תיקון", "תנאים", "בשכירות", "בצוואה", "בירושה", "טעות", "סופר", "עודף", "חלקית", "בחוכר", "הסכם", "עפ\"י", "פיצול", "ירושה", "מכר", "רישום", "בעלות", "לאחר", "הסדר", "שנוי", "שם", "חלוקה", "איחוד", "רכישה", "לפי", "חק", "רכישת", "צוואה", "עדכון", "התאמת" ,"משותף", "צו", "בית", "על", "פי","שינוי","משפט","החזרת","חליפין","הקניה"))
             {
                 if (ClassUtils.isMatchSequenceNormal(temp, iv, "רישום", "לפי", "צו", "בית","משפט"))
                 {
@@ -1156,12 +1156,23 @@ namespace PDF2excelConsole
                     sss = temp[iv] + " " + temp[iv + 1];
                     result.Add(sss, 2);
                 }
+                else if (ClassUtils.isMatchSequenceNormal(temp, iv, "תיקון", "צוואה"))
+                {
+                    sss = temp[iv] + " " + temp[iv + 1];
+                    result.Add(sss, 2);
+                }
+
                 else if (ClassUtils.isMatchSequenceNormal(temp, iv, "תיקון", "רישום"))
                 {
                     sss = temp[iv] + " " + temp[iv + 1];
                     result.Add(sss, 2);
                 }
                 else if (ClassUtils.isMatchSequenceNormal(temp, iv, "העברת", "שכירות"))
+                {
+                    sss = temp[iv] + " " + temp[iv + 1];
+                    result.Add(sss, 2);
+                }
+                else if (ClassUtils.isMatchSequenceNormal(temp, iv, "החזרת", "רישום"))
                 {
                     sss = temp[iv] + " " + temp[iv + 1];
                     result.Add(sss, 2);
@@ -1228,6 +1239,17 @@ namespace PDF2excelConsole
                     sss = temp[iv];
                     result.Add(sss, 1);
                 }
+                else if (ClassUtils.isMatchSequenceNormal(temp, iv, "הקניה"))
+                {
+                    sss = temp[iv];
+                    result.Add(sss, 1);
+                }
+                else if (ClassUtils.isMatchSequenceNormal(temp, iv, "חליפין"))
+                {
+                    sss = temp[iv];
+                    result.Add(sss, 1);
+                }
+
             }
             return result;
         }

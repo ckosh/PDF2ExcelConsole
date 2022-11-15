@@ -52,10 +52,13 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1DD2EDCFA2133DC39B33DFA4EAAF3BC29419C1DF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>A65A937E4DF4D97C24A052467D842CDC47D00FDC</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">

@@ -25,7 +25,7 @@ namespace PDF2excelConsole
             string userMail;
             List<int> listofOwners;
             int numberOfOwners;
-            Console.WriteLine("Start 12/08/2022 mail by ID - project number");
+            Console.WriteLine("Start 07/11/2022 add file date doc number");
             if (args.Length == 0)
             {
                 Console.WriteLine("Invalid args");
