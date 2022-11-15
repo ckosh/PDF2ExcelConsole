@@ -1,1 +1,9 @@
 obj/Release/
+obj/Debug/
+bin/Release/
+bin/Debug/
+bin/Debug/PDF2excelConsole.application
+bin/Debug/PDF2excelConsole.exe
+bin/Debug/PDF2excelConsole.exe.manifest
+bin/Debug/PDF2excelConsole.pdb
+bin/Debug/app.publish/PDF2excelConsole.exe
