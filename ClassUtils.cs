@@ -322,7 +322,14 @@ namespace PDF2excelConsole
                     pos.Add(4);
                     return pos;
                 }
-                else if (args[2] == "תיקון" && args[3] == "טעות" && args[4] == "סןפר")
+                else if (args[2] == "תיקון" && args[3] == "רישום" && args[4] == "בשכירות")
+                {
+                    pos.Add(2);
+                    pos.Add(3);
+                    pos.Add(4);
+                    return pos;
+                }
+                else if (args[2] == "תיקון" && args[3] == "טעות" && args[4] == "סופר")
                 {
                     pos.Add(2);
                     pos.Add(3);
@@ -959,20 +966,23 @@ namespace PDF2excelConsole
                 sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3] + temp[iv + 4];
                 result.Add(sss, 5);
             }
+            else if (ClassUtils.isMatchSequenceNormal(temp, iv, "העברת", "שכירות", "חלקית", "בצוואה"))
+            {
+                sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3];
+                result.Add(sss, 4);
+            }
             else if (ClassUtils.isMatchSequenceNormal(temp, iv, "העברת", "שכירות", "בצוואה", "עפ\"י"))
             {
                 sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3];
                 result.Add(sss, 4);
                 result.Add("הסכם", 1);
             }
-
             else if (ClassUtils.isMatchSequenceNormal(temp, iv, "העברת", "שכירות", "חלקית", "ללא"))
             {
                 sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3];
                 result.Add(sss, 4);
                 result.Add("תמורה", 1);
             }
-
             else if (ClassUtils.isMatchSequenceNormal(temp, iv, "עודף", "לאחר", "העברת", "שכירות"))
             {
                 sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3];
@@ -985,8 +995,6 @@ namespace PDF2excelConsole
                 result.Add(sss, 4);
                 result.Add("הסכם", 1);
             }
-
-
             else if (ClassUtils.isMatchSequenceNormal(temp, iv, "העברת", "שכירות", "ללא", "תמורה"))
             {
                 sss = temp[iv] + " " + temp[iv + 1] + " " + temp[iv + 2] + " " + temp[iv + 3];

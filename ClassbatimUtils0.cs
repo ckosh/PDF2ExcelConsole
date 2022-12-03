@@ -402,6 +402,15 @@ namespace PDF2excelConsole
                 markVal[argVal.Count - 4] = 1;
                 top = argVal.Count - 5;
             }
+            // find id location
+            int idlocation = findIdNumberLocation(argVal);
+            if ( idlocation > -1)
+            {
+                results[3] = argVal[idlocation];
+                markVal[idlocation] = 1;
+                top = top -1;
+            }
+
             // id type 
             int idtypelocation = findIDTypeLocation(argVal);
             if (idtypelocation > -1)
@@ -869,7 +878,7 @@ namespace PDF2excelConsole
             int ret = -1;
             for (int i = 0; i < argVal.Count - 1; i++)
             {
-                if (argVal[i] == "ת.ז" || argVal[i] == "חברה" || argVal[i] == "דרכון" || argVal[i] == "עמותה")
+                if (argVal[i] == "ת.ז" || argVal[i] == "חברה" || argVal[i] == "דרכון" || argVal[i] == "עמותה" || argVal[i] == "תאגיד")
                 {
                     ret = i;
                     continue;

@@ -10,68 +10,87 @@ namespace PDF2excelConsole
 {
     internal class Program
     {
-        static public int delaySeconds = 30;
-        static public string Tempfolder = "d:\\temp";
-        static public int opsticalMinutes = 30;
-        static public bool debugMode = true;
-        static public int Pop3Port =  110;
+        //static public int delaySeconds = 30;
+        //static public string Tempfolder = "d:\\temp";
+        //static public int opsticalMinutes = 30;
+        //static public bool debugMode = true;
+        //static public int Pop3Port =  110;
         static public string resultExcelFile;
-        static public bool skipMail = false;
-        static public bool ssl = false;
-        static public string backupFolder = "";
+        //static public bool skipMail = false;
+        //static public bool ssl = false;
+        //static public string backupFolder = "";
+        static bool printDebug = true;
 
-        static void Main(string[] args)
-         {
+        static ClassEnvironmentParams environmentParams;
+        static void Main()
+         {    
             string userMail;
             List<int> listofOwners;
+            string argfileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\PDF2Excel\\PDF2ExcelArgs.txt";
+            environmentParams = new ClassEnvironmentParams(argfileName);
             int numberOfOwners;
-            Console.WriteLine("Start 07/11/2022 add file date doc number");
-            if (args.Length == 0)
+
+            Console.WriteLine("Start 03/12/2022 argv from documents");
+            
+
+            //if (args.Length == 0)
+            //{
+            //    environmentParams = new ClassEnvironmentParams("");
+            //    if (!environmentParams.azureVMMode())
+            //    {
+            //        Console.WriteLine("Invalid args");
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    environmentParams = new ClassEnvironmentParams(args[0]);
+            //}
+            
             {
-                Console.WriteLine("Invalid args");
-                return;
-            }
-            else
-            {
-                string ParamFile = args[0];
-                ClassArgsParser argParser = new ClassArgsParser();
-                argParser.parseArgs(ParamFile);
+//                environmentParams = new ClassEnvironmentParams(args[0]);
+                //string ParamFile = args[0];
+                //ClassArgsParser argParser = new ClassArgsParser();
+                //argParser.parseArgs(ParamFile);
 
-                delaySeconds = argParser.getDelaySeconds();
-                Tempfolder = argParser.getTempFolder();
-                debugMode = argParser.getDebugMode();
-                Pop3Port = argParser.getPort();
-                skipMail = argParser.getSkipMail();
-                ssl = argParser.getussl();
-                backupFolder = argParser.getBackupFolder();
+                //delaySeconds = argParser.getDelaySeconds();
+                //Tempfolder = argParser.getTempFolder();
+                //debugMode = argParser.getDebugMode();
+                //Pop3Port = argParser.getPort();
+                //skipMail = argParser.getSkipMail();
+                //ssl = argParser.getussl();
+                //backupFolder = argParser.getBackupFolder();
 
 
-                if ( skipMail)
+                if (environmentParams.SkipMail() )
                 {
-                    string[] temp = Directory.GetFiles(Tempfolder, "*.pdf");
+                    string[] temp = Directory.GetFiles(environmentParams.Tempfolder(), "*.pdf");
                     string[] PdfFileNames = new string[temp.Length];
                     for (int k = 0; k < temp.Length; k++)
                     {
                         PdfFileNames[k] = Path.GetFileName(temp[k]);
                     }
-                    ClassProcessPDF processPDF = new ClassProcessPDF(PdfFileNames, debugMode, Tempfolder);
+                    ClassProcessPDF processPDF = new ClassProcessPDF(PdfFileNames, environmentParams.DebugMode(), environmentParams.Tempfolder());
                     resultExcelFile = processPDF.convert();
 
                 }
                 else
                 {
-                    ClassMailManager1 mailManager = new ClassMailManager1(debugMode, Pop3Port, ssl , Tempfolder);
+                    ClassMailManager1 mailManager = new ClassMailManager1(environmentParams.DebugMode(), environmentParams.Pop3Port() , environmentParams.Ssl(), environmentParams.Tempfolder() );
+                    
                     while (true)
                     {
                         userMail = mailManager.ConnectToPop3();
                         if (userMail != null && userMail.Length > 1 )
                         {
+                            
                             if (userMail.Length > 0)
                             {
+
                                 Console.WriteLine(userMail);
                                 //                    Log.Info("before process files  ");
                                 string[] PdfFileNames = mailManager.GetPdfFiles();
-                                ClassProcessPDF processPDF = new ClassProcessPDF(PdfFileNames, debugMode, Tempfolder);
+                                ClassProcessPDF processPDF = new ClassProcessPDF(PdfFileNames, environmentParams.DebugMode(), environmentParams.Tempfolder());
                                 //            Log.Info("after process files  ");
                                 resultExcelFile = processPDF.convert();
                                 Console.WriteLine(resultExcelFile);
@@ -83,27 +102,25 @@ namespace PDF2excelConsole
                                 Console.WriteLine("files " + listofOwners.Count.ToString());
 
                                 double totalcost = getTotalCost(listofOwners);
-                                string sstype = "";
-                                sstype = "המרת נסחים - בניית טבלת מצב נכנס";
                                 string ffff = totalcost.ToString("0.#");
-                                string body = ffff + " עלות הסבה" + '\n' + PdfFileNames.Length.ToString() + " מספר נסחים " + '\n' + numberOfOwners.ToString() + " מספר בעלים " + '\n' + sstype;
+                                string body = ffff + " עלות הסבה" + '\n' + PdfFileNames.Length.ToString() + " מספר נסחים " + '\n' + numberOfOwners.ToString() + " מספר בעלים " + '\n' ;
                                 // copy for backup
 //                                mailManager.sendMail("grabnadlan@gmail.com", "העתק תוצאות", resultExcelFile, userMail + '\n' + body);
                                 mailManager.sendMail(userMail, "תוצאות הסבת נסחי טאבו", resultExcelFile, body);
-                                if ( backupFolder != ""  || userMail != "chaim.koshizky@gmail.com")
+                                if (environmentParams.BackupFolder()  != ""  || userMail != "chaim.koshizky@gmail.com")
                                 {
-                                    string Todir = backupFolder + "\\" + userMail + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
-                                    ClassUtils.copyFilesFromDirToDir(Tempfolder, Todir);
+                                    string Todir = environmentParams.BackupFolder() + "\\" + userMail + "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                                    ClassUtils.copyFilesFromDirToDir(environmentParams.Tempfolder() , Todir);
                                 }
-                                ClassUtils.deleteAllFilesFromDirectory(Tempfolder);
-                                ClassUtils.deleteAllFilesFromDirectory(Tempfolder + "\\CSV");
+                                ClassUtils.deleteAllFilesFromDirectory(environmentParams.Tempfolder());
+                                ClassUtils.deleteAllFilesFromDirectory(environmentParams.Tempfolder() + "\\CSV");
                                 if (userMail != "chaim.koshizky@gmail.com")
                                 {
                                     mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost, mailManager.getProject());
                                 }
                             }
                         }
-                        Thread.Sleep(delaySeconds * 1000);
+                        Thread.Sleep(environmentParams.DelaySeconds()  * 1000);
                     }
                 }
             }

@@ -276,10 +276,10 @@ namespace PDF2excelConsole
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 7, leas.id[k]);
                             excelOperations.PutLitteralStringValue(ClassClosedXML.Sheets.BatimLeasing, currentrow, 8, leas.part[k]);
                             excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 9, leas.shtar[k]);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 10, leas.rama[k]);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 11, leas.endDate[k]);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 12, leas.remarks[k]);
-                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 13, leas.partpropery[k]);
+                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 10, leas.rama);
+                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 11, leas.endDate);
+                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 12, leas.remarks);
+                            excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimLeasing, currentrow, 13, leas.partpropery);
                             currentrow++;
                         }
                     }
@@ -749,65 +749,63 @@ namespace PDF2excelConsole
                     {
                         try
                         {
+                            Classbatim.Leasing leas = new Classbatim.Leasing(); ;
                             int counter = 0;
-                            bool first = true;
+                            bool firstLineinLeasingSection = true;
                             do
                             {
-                                temp = new List<string>(slExcelData.DataRows[currentRow]);
-                                temp = ClassUtils.reverseOrder(temp);
-                                List<string> l3 = new List<string>();
-                                if (ClassUtils.isShtarNumber(temp[temp.Count - 1]))
-                                {
-                                    bool skipNextLine = false;
-                                    Classbatim.Leasing leas = new Classbatim.Leasing();
-                                    l3 = ClassbatimUtils0.parseLeaser(temp, ref skipNextLine);
-                                    leas.leasingType.Add(l3[0]);
-                                    leas.Name.Add(l3[1]);
-                                    leas.idtype.Add(l3[2]);
-                                    leas.id.Add(l3[3]);
-                                    leas.part.Add(l3[4]);
-                                    leas.shtar.Add(l3[5]);
-                                    // dummy add
-                                    leas.rama.Add("");
-                                    leas.endDate.Add("");
-                                    leas.remarks.Add("");
-                                    leas.partpropery.Add("");
-                                    batim.tatHelkot[i].leasings.Add(leas);
-                                    if (first)
-                                    {
-                                        counter = batim.tatHelkot[i].leasings.Count;
-                                        first = false;
-                                    }
-                                    currentRow++;
-                                    if (skipNextLine) currentRow++;
+                                
+                                if ( firstLineinLeasingSection) leas = new Classbatim.Leasing();
 
-                                    // check if name flows to other line
-                                    List<string> temp1 = new List<string>(slExcelData.DataRows[currentRow]);
-                                    temp1 = ClassUtils.reverseOrder(temp1);
-                                    if (temp1.Count < 2)
+                                if (true )
+                                {
+                                    firstLineinLeasingSection = false;
+                                
+                                    temp = new List<string>(slExcelData.DataRows[currentRow]);
+                                    temp = ClassUtils.reverseOrder(temp);
+                                    List<string> l3 = new List<string>();
+                                    if (ClassUtils.isShtarNumber(temp[temp.Count - 1]))
                                     {
-                                        string lastval = leas.Name[leas.Name.Count - 1];
-                                        lastval = lastval + " " + temp1[0];
-                                        leas.Name[leas.Name.Count - 1] = lastval;
+                                        bool skipNextLine = false;
+                                        l3 = ClassbatimUtils0.parseLeaser(temp, ref skipNextLine);
+                                        leas.leasingType.Add(l3[0]);
+                                        leas.Name.Add(l3[1]);
+                                        leas.idtype.Add(l3[2]);
+                                        leas.id.Add(l3[3]);
+                                        leas.part.Add(l3[4]);
+                                        leas.shtar.Add(l3[5]);
                                         currentRow++;
+                                        // check if name flows to other line
+                                        List<string> temp1 = new List<string>(slExcelData.DataRows[currentRow]);
+                                        temp1 = ClassUtils.reverseOrder(temp1);
+                                        if (!ClassUtils.isShtarNumber(temp1[temp1.Count - 1]) && !ClassUtils.isArrayIncludeOneOfStringParam(temp1, "רמה:"))
+                                        {
+                                            string lastval = leas.Name[leas.Name.Count - 1];
+                                            for (int jj = 0; jj < temp1.Count; jj++) lastval = lastval + " " + temp1[jj];
+
+                                            leas.Name[leas.Name.Count - 1] = lastval;
+                                            currentRow++;
+                                        }
+                                    }
+                                    else if (ClassUtils.isArrayIncludeOneOfStringParam(temp, "רמה:", "סיום:")) // end of section 
+                                    {
+                                        //leas = batim.tatHelkot[i].leasings[counter - 1];
+                                        l3 = ClassbatimUtils0.parseLastLeasRow(temp);
+                                        leas.rama = l3[0];
+                                        leas.endDate = l3[1];
+                                        leas.remarks = l3[2];
+                                        leas.partpropery = l3[3];
+                                        currentRow++;
+                                        firstLineinLeasingSection = true;
+                                        batim.tatHelkot[i].leasings.Add(leas);
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("double line");
                                     }
 
                                 }
-                                else if (ClassUtils.isArrayIncludeOneOfStringParam(temp, "רמה:", "סיום:")) // end of section 
-                                {
-                                    Classbatim.Leasing leas = batim.tatHelkot[i].leasings[counter - 1];
-                                    l3 = ClassbatimUtils0.parseLastLeasRow(temp);
-                                    leas.rama[0] = l3[0];
-                                    leas.endDate[0] = l3[1];
-                                    leas.remarks[0] = l3[2];
-                                    leas.partpropery[0] = l3[3];
-                                    currentRow++;
-                                    first = true;
-                                }
-                                else
-                                {
-                                    throw new Exception("double line");
-                                }
+
                             } while (currentRow < lastRow.Value);
                         }
                         catch (Exception e)

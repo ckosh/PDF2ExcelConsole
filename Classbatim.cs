@@ -204,10 +204,10 @@ namespace PDF2excelConsole
             public List<string> id;
             public List<string> part;
             public List<string> shtar;
-            public List<string> rama;
-            public List<string> endDate;
-            public List<string> remarks;
-            public List<string> partpropery;
+            public string rama;
+            public string endDate;
+            public string remarks;
+            public string partpropery;
 
             public Leasing()
             {
@@ -218,10 +218,10 @@ namespace PDF2excelConsole
                 id = new List<string>();
                 part = new List<string>();
                 shtar = new List<string>();
-                rama = new List<string>();
-                endDate = new List<string>();
-                remarks = new List<string>();
-                partpropery = new List<string>();
+                rama = "" ;
+                endDate = "";
+                remarks = "";
+                partpropery = "";
             }
         }
         public class Remark

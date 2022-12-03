@@ -498,14 +498,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="217016">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="217528">
       <assemblyIdentity name="PDF2excelConsole" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PNk7jK5JC/aPkvGybqHcCciNVM+9/0mud2LoNDwSFCQ=</dsig:DigestValue>
+        <dsig:DigestValue>PQU+Xz0pWm+iKlP6FdOQwBGgNoYnRTP6pQTLo25Wh6I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

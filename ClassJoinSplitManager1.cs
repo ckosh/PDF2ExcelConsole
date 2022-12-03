@@ -126,9 +126,11 @@ namespace PDF2excelConsole
                                 }
                                 if (batim.tatHelkot[i].leasings.Count > 0)
                                 {
-                                    name = batim.tatHelkot[i].leasings[own].Name[0];
-                                    ID = batim.tatHelkot[i].leasings[own].id[0];
-                                    part = batim.tatHelkot[i].leasings[own].part[0];
+                                    int lcount = batim.tatHelkot[i].leasings.Count -1 ;
+                                    name = batim.tatHelkot[i].leasings[lcount].Name[own];
+                                    name = batim.tatHelkot[i].leasings[lcount].Name[own];
+                                    ID = batim.tatHelkot[i].leasings[lcount].id[own];
+                                    part = batim.tatHelkot[i].leasings[lcount].part[own];
                                 }
                                 else
                                 {
@@ -196,7 +198,7 @@ namespace PDF2excelConsole
 
                     }
                 }
-                else
+                else // zhuiot
                 {
                     ClassTaboo taboo = (ClassTaboo)nesach;
                     try
@@ -332,7 +334,10 @@ namespace PDF2excelConsole
             ret = bait.tatHelkot[tatHelka].owners.Count;
             if (bait.tatHelkot[tatHelka].leasings.Count > 0)
             {
-                ret = bait.tatHelkot[tatHelka].leasings.Count;
+                ret = bait.tatHelkot[tatHelka].leasings.Count - 1;
+                ret = bait.tatHelkot[tatHelka].leasings[ret].Name.Count;
+
+//                ret = bait.tatHelkot[tatHelka].leasings.Count;
             }
             return ret;
         }

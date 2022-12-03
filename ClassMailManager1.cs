@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static GrabNadlanLicense.ClassMongoDBPDF;
 
@@ -447,13 +448,14 @@ namespace PDF2excelConsole
             }
             SmtpClient client = new SmtpClient(host);
             client.Credentials = new System.Net.NetworkCredential(localUser, localPassword);
+            
             try
             {
                 client.Send(message);
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.ToString());
             }
             message.Dispose();
             client.Dispose();
