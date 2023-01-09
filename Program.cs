@@ -30,7 +30,7 @@ namespace PDF2excelConsole
             environmentParams = new ClassEnvironmentParams(argfileName);
             int numberOfOwners;
 
-            Console.WriteLine("Start 03/12/2022 argv from documents");
+            Console.WriteLine("Start 20/12/2022 fix passport details fix green attachment fix bug o missing mortgage parameter in ZUIOt Fix USA");
             
 
             //if (args.Length == 0)
@@ -116,7 +116,7 @@ namespace PDF2excelConsole
                                 ClassUtils.deleteAllFilesFromDirectory(environmentParams.Tempfolder() + "\\CSV");
                                 if (userMail != "chaim.koshizky@gmail.com")
                                 {
-                                    mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost, mailManager.getProject());
+                                    mailManager.savecBillingData(userMail, listofOwners.Count, resultExcelFile, numberOfOwners, totalcost, mailManager.getSubject());
                                 }
                             }
                         }

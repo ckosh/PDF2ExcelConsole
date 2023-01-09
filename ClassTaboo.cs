@@ -670,13 +670,19 @@ namespace PDF2excelConsole
                         {
                             mortgage.mortgageBorower.borowerIDNumber.Add(l2[0]);
                         }
-                        if (l4[1] == "סוג זיהוי")
-                        {
-                            mortgage.mortgageBorower.borowerIDType.Add(l2[1]);
+                        if ( l4.Count > 1) 
+                        { 
+                            if (l4[1] == "סוג זיהוי")
+                            {
+                                mortgage.mortgageBorower.borowerIDType.Add(l2[1]);
+                            }
                         }
-                        if (l4[2] == "שם הלווה")
+                        if ( l4.Count > 2)
                         {
-                            mortgage.mortgageBorower.borowerName.Add(l2[2]);
+                            if (l4[2] == "שם הלווה")
+                            {
+                                mortgage.mortgageBorower.borowerName.Add(l2[2]);
+                            }
                         }
                         rowNumberj++;
                         if (!ClassUtils.isArrayIncludeOneOfStringParam(slExcelData.DataRows[rowNumberj], "חברה", "ת.ז", "דרכון") && ClassUtils.isArrayIncludString(slExcelData.DataRows[rowNumberj], "דרגה") == -1)

@@ -538,6 +538,10 @@ namespace PDF2excelConsole
             {
                 retVal = 4;
             }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "הערה", "על", "מינוי", "אפוטרופוס"))
+            {
+                retVal = 4;
+            }
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "הערה", "על", "ביטול", "הרשאה"))
             {
                 retVal = 4;
@@ -621,7 +625,7 @@ namespace PDF2excelConsole
             {
                 for (int i = 1; i < 3; i++)
                 {
-                    if (ClassUtils.isStringOneOfParams(l4[i], "אפור", "סגול", "ורוד", "חום", "אדום", "כחול", "צהוב", "ירןק", "כתום", "תכלת", "זית", "חום"))
+                    if (ClassUtils.isStringOneOfParams(l4[i], "אפור", "סגול", "ורוד", "חום", "אדום", "כחול", "צהוב", "ירוק", "כתום", "תכלת", "זית", "חום"))
                     {
                         results[1] = results[1] + l4[i];
                         l4int[i] = 0;
@@ -821,14 +825,23 @@ namespace PDF2excelConsole
             int idtypelocation = findIDTypeLocation(argVal);
             if (idtypelocation > -1)
             {
-//                if (ClassUtils.containHebrew(argVal[idtypelocation + 1]))
-                if ( false )
+                //                if (ClassUtils.containHebrew(argVal[idtypelocation + 1]))
+                //if (argVal[idtypelocation] == "דרכון" && !argVal[idtypelocation+1].All(Char.IsDigit))
+
+                if (argVal[idtypelocation] == "דרכון" && argVal[idtypelocation+1].All(c => ( c >=  'א' && c <= 'ת') || c == '\"' )) // get passport nationality
                 {
                     results[2] = argVal[idtypelocation] + " " + argVal[idtypelocation+1];
                     markVal[idtypelocation] = 1;
                     markVal[idtypelocation+1] = 1;
                     results[3] = argVal[idtypelocation + 2];
                     markVal[idtypelocation + 2] = 1;
+                }
+                else if (argVal[idtypelocation] == "דרכון" && isForeignID(argVal[idtypelocation+1]))
+                {
+                    results[2] = argVal[idtypelocation];
+                    markVal[idtypelocation] = 1;
+                    results[3] = argVal[idtypelocation + 1];
+                    markVal[idtypelocation + 1] = 1;
                 }
                 else
                 {
@@ -887,6 +900,20 @@ namespace PDF2excelConsole
             return ret;
         }
         // check if string contains sequential 5 digits 
+        public static bool isForeignID(string sss)
+        {
+            bool ret = false;
+            if ( sss.Length < 5 )
+            {
+                return ret;
+            }
+            if ( sss.All(char.IsLetterOrDigit))
+            {
+                ret = true;
+            }
+
+            return ret;
+        }
         public static int findIdNumberLocation(List<string> argVal)
         {
             int ret = -1;

@@ -309,15 +309,21 @@ namespace PDF2excelConsole
                     result[0] = rawValue[0];
                 }
             }
-            if (rawKey[1] == "סוג זיהוי")
+            if (rawKey.Count  > 1)
             {
-                result[1] = rawValue[1];
-                markKey[1] = 0;
-                markValue[1] = 0;
+                if (rawKey[1] == "סוג זיהוי")
+                {
+                    result[1] = rawValue[1];
+                    markKey[1] = 0;
+                    markValue[1] = 0;
+                }
             }
-            for (int i = 2; i < markValue.Length; i++)
+            if (rawKey.Count > 2) 
             {
-                result[2] = rawValue[i] + " " + result[2];
+                for (int i = 2; i < markValue.Length; i++)
+                {
+                    result[2] = rawValue[i] + " " + result[2];
+                }
             }
             for (int i = 0; i < result.Length; i++)
             {
@@ -1220,6 +1226,10 @@ namespace PDF2excelConsole
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "הקניה"))
             {
                 retVal = 1;
+            }
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "ויתור"))
+            {
+            retVal = 1;
             }
 
             return retVal;
