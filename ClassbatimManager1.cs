@@ -711,15 +711,18 @@ namespace PDF2excelConsole
                     {
                         do
                         {
+                            List<string> temp1; // send next line in case part is split into two lins.
                             temp = new List<string>(slExcelData.DataRows[currentRow]);
                             temp = ClassUtils.reverseOrder(temp);
+                            temp1 = new List<string>(slExcelData.DataRows[currentRow+1]);
+                            temp1 = ClassUtils.reverseOrder(temp1);
                             List<string> l3 = new List<string>();
                             string sss;
 
                             if (ClassUtils.isShtarNumber(temp[temp.Count - 1]))
                             {
                                 Classbatim.Owner own = new Classbatim.Owner();
-                                l3 = ClassbatimUtils0.parseOwners(temp);
+                                l3 = ClassbatimUtils0.parseOwners(temp, temp1);
                                 own.transaction = l3[0];
                                 own.name = l3[1];
                                 own.idType = l3[2];
@@ -731,6 +734,7 @@ namespace PDF2excelConsole
                             else
                             {
                                 sss = ClassUtils.buildReverseCombinedLine(temp);
+                                if ( !ClassUtils.isAllDigit(sss))
                                 batim.tatHelkot[i].owners[batim.tatHelkot[i].owners.Count - 1].name = batim.tatHelkot[i].owners[batim.tatHelkot[i].owners.Count - 1].name + sss;
                             }
                             currentRow++;

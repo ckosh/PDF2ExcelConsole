@@ -779,7 +779,7 @@ namespace PDF2excelConsole
             }
             return results;
         }
-        public static List<string> parseOwners(List<string> argVal)
+        public static List<string> parseOwners(List<string> argVal, List<string> nextLine)
         {
             List<string> results = new List<string>(6);
             for (int i = 0; i < 6; i++) results.Add(null);
@@ -812,6 +812,16 @@ namespace PDF2excelConsole
                 results[4] = argVal[argVal.Count - 2];
                 markVal[argVal.Count - 2] = 1;
                 top = argVal.Count - 3;
+            }
+            else if (nextLine.Count == 1 && ClassUtils.isAllDigit(nextLine[0]))
+            {
+                if (ClassUtils.isAllDigit(argVal[argVal.Count - 2]) && argVal[argVal.Count - 3] == "/" && ClassUtils.isAllDigit(nextLine[0]))
+                {
+                    results[4] = argVal[argVal.Count - 2] + " " + argVal[argVal.Count - 3] + " " + nextLine[0];
+                    markVal[argVal.Count - 2] = 1;
+                    markVal[argVal.Count - 3] = 1;
+                    top = argVal.Count - 4;
+                }
             }
             else if (ClassUtils.isAllDigit(argVal[argVal.Count - 2]) && argVal[argVal.Count - 3] == "/" && ClassUtils.isAllDigit(argVal[argVal.Count - 4]))
             {

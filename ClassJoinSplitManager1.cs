@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,10 +145,15 @@ namespace PDF2excelConsole
                                     for ( int jjj = 0; jjj < batim.tatHelkot[i].remarks.Count; jjj++)
                                     {
                                         string bbb = batim.tatHelkot[i].remarks[jjj].remarkType;
-                                        if ( bbb.Contains("126") || bbb.Contains("128"))
+                                        if ( bbb != null)
                                         {
-                                            name = "* " + name;
+                                            if (bbb.Contains("126") || bbb.Contains("128"))
+                                            {
+                                                name = "* " + name;
+                                            }
+
                                         }
+
                                     }
                                 }
                                 celparam.ifmerge = false;

@@ -30,7 +30,7 @@ namespace PDF2excelConsole
             environmentParams = new ClassEnvironmentParams(argfileName);
             int numberOfOwners;
 
-            Console.WriteLine("Start 20/12/2022 fix passport details fix green attachment fix bug o missing mortgage parameter in ZUIOt Fix USA");
+            Console.WriteLine("Start 10/01/2023 fix parts of two lines");
             
 
             //if (args.Length == 0)

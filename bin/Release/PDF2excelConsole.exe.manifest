@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="PDF2excelConsole.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="PDF2excelConsole.exe" version="1.0.0.3" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="PDF2excelConsole" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -109,7 +109,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>90Ck0vitvgAbkHv6hNqyu1BtA4Deyc0EDcOKNls7esc=</dsig:DigestValue>
+        <dsig:DigestValue>D+FP9enQa6MRUY/IyBwAWx5Wm6CUUB04xxFACs0aiDA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -498,14 +498,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="218040">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PDF2excelConsole.exe" size="218552">
       <assemblyIdentity name="PDF2excelConsole" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1rbyWL6tML4ufCZdgBguT//U1E10lawjod//ld7lJlc=</dsig:DigestValue>
+        <dsig:DigestValue>3ynWJ8CjmsPDMZFar4aXBvcY++7C65JBDY5j6iBLyx0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
