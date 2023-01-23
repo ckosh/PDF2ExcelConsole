@@ -834,8 +834,11 @@ namespace PDF2excelConsole
                         }
                         if (ClassUtils.isArrayIncludeAllStringsParam(slExcelData.DataRows[rowNumberj + 1], "הערות"))
                         {
-                            rowNumberj++;
-                            LeasingOwner.Remarks = ClassUtils.buildCombinedline(slExcelData.DataRows[rowNumberj]);
+                            do
+                            {
+                                rowNumberj++;
+                                LeasingOwner.Remarks += " " + ClassUtils.buildCombinedline(slExcelData.DataRows[rowNumberj]);
+                            } while (!ClassUtils.isArrayIncludeAllStringsParam(slExcelData.DataRows[rowNumberj+1], "רמת", "חכירה"));
                         }
                         leasing.leasingOwners.Add(LeasingOwner);
                         rowNumberj++;
@@ -900,8 +903,16 @@ namespace PDF2excelConsole
                     int newrow = row + 1;
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 1, fileName);
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 2, "חכירות");
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 3, ClassUtils.buildReverseCombinedLine(slExcelData.DataRows[rowNumberj]));
-                    excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 4, rowNumberj.ToString());
+                    try
+                    {
+                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 3, ClassUtils.buildReverseCombinedLine(slExcelData.DataRows[rowNumberj]));
+                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 4, rowNumberj.ToString());
+                    }
+                    catch (Exception ee)
+                    {
+                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 3, "שגיאה");
+                        excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 4, "שורה");
+                    }
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, row, 5, e.ToString());
                     excelOperations.PutValueInSheetRowColumn(ClassClosedXML.Sheets.BatimError, 1, 6, newrow.ToString());
                     excelOperations.setSheetCellWrapText(ClassClosedXML.Sheets.BatimError, false, 6, row, 1);

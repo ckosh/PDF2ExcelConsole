@@ -240,7 +240,7 @@ namespace PDF2excelConsole
                                 deleteLines.Add(lineToDelete);
                             }
                         }
-                        else if (ClassUtils.isArrayIncludeAllStringsParam(NesachTaboo[j], "על","כל","הבעלים"))
+                        else if (ClassUtils.isArrayIncludeAllStringsParam(NesachTaboo[j], "על","כל","הבעלים") || ClassUtils.isArrayIncludeAllStringsParam(NesachTaboo[j], "על", "החכירה", "של"))
                         {
                             withinLeasing = false;
                         }

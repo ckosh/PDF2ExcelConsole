@@ -50,9 +50,10 @@ namespace PDF2excelConsole
 
             //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.BatimProperty);
             batimManager.CreatePropertyTable();
-//            excelOperations.exitForDebug();
+            //            excelOperations.exitForDebug();
 
             //            excelOperations.deleteSheet(ClassExcelOperations.Sheets.BatimLeasing);
+            
             batimManager.CreateBatimLeasing();
 //            excelOperations.exitForDebug();
 

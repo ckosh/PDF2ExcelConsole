@@ -30,7 +30,7 @@ namespace PDF2excelConsole
             environmentParams = new ClassEnvironmentParams(argfileName);
             int numberOfOwners;
 
-            Console.WriteLine("Start 10/01/2023 fix parts of two lines");
+            Console.WriteLine("Start 23/01/2023 fix zhuyit leasing");
             
 
             //if (args.Length == 0)
