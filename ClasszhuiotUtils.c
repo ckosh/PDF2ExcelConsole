@@ -1118,6 +1118,12 @@ namespace PDF2excelConsole
             {
                 retVal = 4;
             }
+
+            else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "ביטול", "צו", "בית", "משותף"))
+            {
+                retVal = 4;
+            }
+
             else if (ClassUtils.isMatchSequenceStright(rawValue, iv, "העברת", "שכירות", "בירושה"))
             {
                 retVal = 3;

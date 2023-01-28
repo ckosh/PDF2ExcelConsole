@@ -838,13 +838,25 @@ namespace PDF2excelConsole
                 //                if (ClassUtils.containHebrew(argVal[idtypelocation + 1]))
                 //if (argVal[idtypelocation] == "דרכון" && !argVal[idtypelocation+1].All(Char.IsDigit))
 
-                if (argVal[idtypelocation] == "דרכון" && argVal[idtypelocation+1].All(c => ( c >=  'א' && c <= 'ת') || c == '\"' )) // get passport nationality
+                if (argVal[idtypelocation] == "דרכון" && argVal[idtypelocation+1].All(c => ( c >=  'א' && c <= 'ת') || c == '\"' || c == '.' )) // get passport nationality
                 {
-                    results[2] = argVal[idtypelocation] + " " + argVal[idtypelocation+1];
-                    markVal[idtypelocation] = 1;
-                    markVal[idtypelocation+1] = 1;
-                    results[3] = argVal[idtypelocation + 2];
-                    markVal[idtypelocation + 2] = 1;
+                    if (argVal[idtypelocation+2].All(c => (c>= 'א' && c <= 'ת')))
+                    {
+                        results[2] = argVal[idtypelocation] + " " + argVal[idtypelocation + 1] + " " + argVal[idtypelocation + 2];
+                        markVal[idtypelocation] = 1;
+                        markVal[idtypelocation + 1] = 1;
+                        markVal[idtypelocation + 2] = 1;
+                        results[3] = argVal[idtypelocation + 3];
+                        markVal[idtypelocation + 3] = 1;
+                    }
+                    else
+                    {
+                        results[2] = argVal[idtypelocation] + " " + argVal[idtypelocation + 1];
+                        markVal[idtypelocation] = 1;
+                        markVal[idtypelocation + 1] = 1;
+                        results[3] = argVal[idtypelocation + 2];
+                        markVal[idtypelocation + 2] = 1;
+                    }
                 }
                 else if (argVal[idtypelocation] == "דרכון" && isForeignID(argVal[idtypelocation+1]))
                 {
